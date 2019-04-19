@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/map', function () {
+    return view('events.testmap');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

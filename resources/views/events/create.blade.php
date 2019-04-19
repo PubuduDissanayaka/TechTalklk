@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('css')
-<script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ck5lksam8dja2hvssb8hndfyhnd9qxvwobl1z6lxjuwyswym"></script>
-{{-- <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script> --}}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&callback=initMap" async defer></script>
+    <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ck5lksam8dja2hvssb8hndfyhnd9qxvwobl1z6lxjuwyswym"></script>
 <script>
     tinymce.init({ 
         selector:'#blogwrite',
@@ -16,8 +16,8 @@
         
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSOSbY0FCY3UKXPV3YrBYbZ6CdS01xoxc"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSOSbY0FCY3UKXPV3YrBYbZ6CdS01xoxc&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&libraries=places"></script>
 
 
 @endsection

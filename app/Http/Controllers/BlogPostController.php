@@ -104,7 +104,6 @@ class BlogPostController extends Controller
         $blogpost = BlogPost::find($id);
         $comment = $blogpost->comments;
         //$comment = DB::table('blog_comments')->where('post_id', '=', $blogpost->id)->orderBy('updated_at','desc')->get();
-        //$comment = DB::table('blog_comments')->where('user_id', '=', $blogpost->id)->orderBy('updated_at','desc')->get();
         $tags = Tag::all();
         // $users = User::find($comment->user_id);
         // $users = User::all();
