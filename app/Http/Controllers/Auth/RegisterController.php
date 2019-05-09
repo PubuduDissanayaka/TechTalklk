@@ -48,12 +48,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        dd($data);
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'acctype' => 'required',
+            'dob' => 'required',
+            'phone' => 'required|numeric|max:10|min:10',
+            'website' => '',
+            'blog' => '',
+            'github' => ''
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -64,9 +73,20 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['fname'],
+            'last_name' => $data['lname'],
             'email' => $data['email'],
+            'role_id' => $data['acctype'],
             'password' => Hash::make($data['password']),
+        ]);
+
+        return UserDetail::create([
+            'user_id' => $this->$data['id'],
+            'dob' => $data['dob'],
+            'tel' => $data['phone'],
+            'website' => $data['website'],
+            'blog' => $data['blog'],
+            'github' => $data['github']
         ]);
     }
 }

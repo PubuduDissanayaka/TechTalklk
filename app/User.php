@@ -6,7 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends \TCG\Voyager\Models\User
+
+
+class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -53,7 +55,7 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(BlogComment::class , 'id' ,'post_id');
     }
 
-    public function friendOfMine()
+    public function friendsOfMine()
     {
         return $this->belongsToMany('App\User', 'friends', 'user_id', 'friend_id');
     }
@@ -64,11 +66,16 @@ class User extends \TCG\Voyager\Models\User
     }
 
     public function friends(){
-        return $this->friendOfMine->merge($this->friendOf);
+        return $this->friendsOfMine->merge($this->friendOf);
     }
 
     public function cource()
     {
         return $this->hasMany('App\Cource');
+    }
+
+    public function detail()
+    {
+        return $this->hasOne('App\UserDetail');
     }
 }

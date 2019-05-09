@@ -11,15 +11,17 @@
 |
 */
 
+Auth::routes(['verify' => true]);
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/map', function () {
-    return view('events.testmap');
-});
+// Route::get('/map', function () {
+//     return view('events.testmap');
+// });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -28,7 +30,8 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
-Auth::routes();
+// Auth::routes();
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -46,8 +49,29 @@ Route::resource('catagories', 'CatagoryController');
 
 Route::resource('events', 'EventController');
 
+Route::post('notification/get', 'NotificationController@get');
+
 Route::resource('comments', 'blogCommentController');
 
 Route::resource('friends', 'friendController');
 
-Route::resource('messages', 'messageController');
+Route::get('/chat/{id}', 'ChatController@show')->middleware('auth')->name('chat.show');
+
+Route::get('/chat', 'ChatController@index')->middleware('auth')->name('chat.index');
+
+Route::post('/chat/getChat/{id}', 'ChatController@getChat')->middleware('auth');
+
+Route::post('/chat/sendChat', 'ChatController@sendChat')->middleware('auth');
+
+
+Route::resource('jobs', 'JobsController');
+
+Route::resource('news-feed', 'NewsFeedController');
+
+Route::resource('eventcomments', 'EventCommentController');
+
+Route::resource('register-user', 'RegController');
+
+Route::get('/verification/{token}' , 'RegController@verification');
+
+

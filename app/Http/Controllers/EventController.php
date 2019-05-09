@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Event;
 use Illuminate\Http\Request;
 use LaraFlash;
-// use Image;
+use App\User;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
+use Notification;
+use App\Notifications\NotifyNewEvent;
+use App\Notifications\NotifyNewEventDB;
+
 
 class EventController extends Controller
 {
@@ -20,17 +24,32 @@ class EventController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(request $request)
     {
-        $events = Event::orderBy('id','desc')->paginate(10);
-        // dd($events);
-        return view('events.index')->with('events',$events);
+        $keyword = $request->get('search');
+        $perPage = 10;
+
+        if (!empty($keyword)) {
+            $events = Event::where('title', 'LIKE', "%$keyword%")
+                ->orWhere('description', 'LIKE', "%$keyword%")
+                ->orWhere('date', 'LIKE', "%$keyword%")
+                ->orWhere('start', 'LIKE', "%$keyword%")
+                ->orWhere('end', 'LIKE', "%$keyword%")
+                ->orWhere('address', 'LIKE', "%$keyword%")
+                ->latest()->paginate($perPage);
+        } else {
+            $events = Event::latest()->paginate($perPage);
+
+        }
+
+        return view ('events.index')->with('events',$events);
+
 
     }
 
@@ -52,6 +71,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
+
 
         // validate data
         $this -> validate($request, array(
@@ -95,11 +116,15 @@ class EventController extends Controller
         }
 
         $event->save();
+
+        // notifications
+        $users = User::where('id', '!=', auth()->user()->id)->get();
+        Notification::send($users, new NotifyNewEventDB($event)); //DB
+        Notification::route('mail', $users)->notify(new NotifyNewEvent($event)); //email
+
         // redirect
-        
         toastr()->success('Event has been published successfully!');
         return redirect()->route('events.show',['id' => $event->id]);
-        dd($event);
     }
 
     /**
@@ -111,8 +136,8 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::find($id);
-        //dd($event);
-        return view('events.show')->with('event',$event);
+        $comment = $event->comments;
+        return view('events.show')->with('event',$event)->with('comment',$comment);
     }
 
     /**
@@ -136,7 +161,6 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         // validate data
         $this -> validate($request, array(
             'title' => 'required|max:255',
@@ -148,10 +172,10 @@ class EventController extends Controller
             'lat' => 'required',
             'lng' => 'required',
             'cover' => 'image'
-            
+
         ));
-        
-        
+
+
         // store data
         $event = Event::find($id);
 
@@ -166,13 +190,13 @@ class EventController extends Controller
 
         if ($request->hasFile('cover')) {
             //add new photo
+            $oldFilename = $event->cover;
             $cover = $request->file('cover');
             $filename = time(). '.' . $cover->getClientOriginalExtension();
             $location = public_path('img/events/cover/' . $filename);
             Image::make($cover)->resize(800,400)->save($location);
-            
-            $oldFilename = $event->cover;
-           
+
+
             //update database
             $event->cover = $filename;
 
@@ -183,10 +207,10 @@ class EventController extends Controller
         } else {
             //
         }
-        
+
 
         // redirect
-
+        $event->save();
         //dd($event);
         toastr()->success('Event has been Updated successfully!');
         return redirect()->route('events.show',['id' => $event->id]);

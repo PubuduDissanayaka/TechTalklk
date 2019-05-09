@@ -40,7 +40,7 @@
 <div class="container-fluid px-xl-2">
 <section class="">
         <section class="blog_area">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="blog_left_sidebar">
@@ -61,7 +61,7 @@
                                                         <li><a href="#">{{date('F j, Y',strtotime($dat->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
                                                         <li><a href="#">{{date('g:i A',strtotime($dat->created_at))}}<i class="far fa-clock"></i></a></li>                                                        
                                                         <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
-                                                        <li><a href="#">06 Comments<i class="lnr lnr-bubble"></i></a></li>
+                                                        <li><a href="#">{{$dat->comments->count()}} Comments<i class="lnr lnr-bubble"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -72,8 +72,8 @@
                                                         <a href="/blog-posts/{{$dat->id}} ">
                                                             <h2>{{$dat->title}}</h2>
                                                         </a>
-                                                        <p>{{substr(strip_tags($dat->body), 0, 500)}} {{ strlen($dat->body) > 500 ? "..." : "" }}</p>
-                                                        <a href="/blog-posts/{{$dat->id}} " class="blog_btn btn btn-outline-primary">View More >></a>
+                                                        <p style="text-align: justify;">{{substr(strip_tags($dat->body), 0, 500)}} {{ strlen($dat->body) > 500 ? "..........." : "" }}</p>
+                                                        <a href="/blog-posts/{{$dat->id}} " class="btn btn-primary">View More <i class="fas fa-greater-than    "></i></a>
                                                         <hr>
                                                     </div>
                                                 </div>
@@ -84,9 +84,8 @@
                                     <p class="display-4">No Blog post found here</p>
                                 @endif
 
-                                <div class="text-center col-md-6 offset-3">                                        {{-- {{$data->appends(request()->query())->links()}} --}}
+                                <div class="text-center col-md-6 offset-3">
                                         {!! $data->links() !!}
-                                    
                                 </div>
 
                             </div>
@@ -94,12 +93,20 @@
                         <div class="col-lg-4">
                             <div class="blog_right_sidebar">
                                 <aside class="single_sidebar_widget search_widget">
-                                    <div class="input-group">
+                                        <form method="GET" action="{{ url('/blog-posts') }}" accept-charset="UTF-8" role="search">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="search" placeholder="Search Blog Posts ..." value="{{ request('search') }}">
+                                                <span class="input-group-append">
+                                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    {{-- <div class="input-group">
                                         <input type="text" class="form-control" placeholder="Search Posts">
                                         <span class="input-group-btn">
                                         <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
                                         </span>
-                                    </div>
+                                    </div> --}}
                                     <div class="br"></div>
                                 </aside>
 
@@ -146,7 +153,7 @@
                                                 <li>
                                                     <a href="#" class="d-flex justify-content-between">
                                                         <p>{{$cat->name}}</p>
-                                                        <p>37</p>
+                                                        <p>5</p>
                                                     </a>
                                                 </li>
                                             @endforeach

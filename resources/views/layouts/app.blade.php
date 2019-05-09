@@ -6,18 +6,33 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="user_id" content="{{Auth::check() ? Auth::user()->id : 'null'}}">
+    <meta name="userId" content="{{Auth::check() ? Auth::user()->id : 'null'}}">
 
     <title>TechTalk</title>
 
     @include('layouts._css')
     @yield('parsleystyle')
 
+    <style>
+        .mynav{
+            margin: 0px 5px 0px 5px;
+            padding: 5px;
+        }
+        .navbar{
+            padding: 0px 20px 0px 20px;
+        }
+    </style>
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel shadow">
+            @guest
+
+            @else
             <a class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead" href="#"><i class="fas fa-align-left"></i></a>
+
+            @endguest
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     TechTalk
@@ -27,34 +42,57 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @guest
+
+                    @else
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <form id="searchForm" class="ml-auto d-none d-lg-block search">
-                                <div class="form-group position-relative mb-0">
-                                <button type="submit" style="top: -3px; left: 0;" class="position-absolute bg-white border-0 p-0"><i class="o-search-magnify-1 text-gray text-lg"></i></button>
-                                <input type="search" placeholder="Search ..." class="form-control form-control-sm border-0 no-shadow pl-4">
+                        <li class="nav-item mynav">
+                            <form id="searchForm" class="ml-auto d-none d-block">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" placeholder="Search People ..." value="{{ request('search') }}">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i></button>
+                                    </span>
                                 </div>
                             </form>
                         </li>
                     </ul>
-
+                    @endguest
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                    
-                           
+                    <ul class="navbar-nav ml-auto position-relative">
+
+
+
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                            <li class="nav-item mynav">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
-                                @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <li class="nav-item mynav">
+                                @if (Route::has('register-user.create'))
+                                    <a class="nav-link" href="/register-user/create">Register</a>
                                 @endif
                             </li>
                         @else
-                            <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
+                        {{-- notifications --}}
+                        <li class="nav-item dropdown ml-auto mynav"><a id="notify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><h3 class="bellicon"><i class="fa fa-bell-o" aria-hidden="true"></i></h3></a>
+                            <div aria-labelledby="notify" class="dropdown-menu">
+                                {{-- <div class="dropdown-divider"></div> --}}
+                              <a href="#" class="dropdown-item">Settings</a>
+                            </div>
+                        </li>
+                        {{-- <notification v-bind:notifications="notifications"></notification> --}}
+                        {{-- end notifications --}}
+                            <li class="nav-item dropdown ml-auto mynav">
+                                <a id="userInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    @if ((Auth::User()->avatar)===null)
+                                        <img src="{{Voyager::image(app('VoyagerAuth')->user()->avatar)}}" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow">
+                                    @else
+                                        <img src="{{asset('img/avatar-6.jpg')}}"  alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow">
+
+                                    @endif
+                                </a>
                                 <div aria-labelledby="userInfo" class="dropdown-menu">
                                     <a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">{{ Auth::user()->name }}</strong><small>Web Developer</small></a>
                                   <div class="dropdown-divider"></div>
@@ -67,7 +105,7 @@
                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
@@ -78,11 +116,11 @@
             </div>
         </nav>
 
-        <main class="maincontent">
-            @yield('content') 
+        <main>
+            @yield('content')
         </main>
     </div>
     @include('layouts._scripts')
-    @include('layouts.toast')
+    {{-- @include('layouts.toast') --}}
 </body>
 </html>

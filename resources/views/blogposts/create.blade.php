@@ -43,11 +43,11 @@
                     <h3 class="h6 text-uppercase mb-0 lead">Create New Blog Post</h3>
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet consectetur.</p>
+                    <p>Share Your Knowledge with others....</p>
                     <form>
                     </form>
                     <label class="form-control-label text-uppercase">Title</label>
-                    {{Form::text('title',null,array('class'=>"form-control", 'required' => '','maxlength'=>'255'))}}
+                    {{Form::text('title',null,array('class'=>"form-control form-control-lg", 'required' => '','maxlength'=>'255'))}}
                     <br>
                     <label class="form-control-label text-uppercase">Blog Description</label>
                     {{Form::textarea('description',null,array('class'=>"form-control", 'rows'=>'20', 'id'=>'blogwrite', 'required' => '' , 'placeholder'=>'Type event description'))}}
@@ -61,7 +61,7 @@
                     Blog Controller
                 </div>
                 <div class="card-body">
-                    {{Form::submit('Create Blog Post',array('class'=>"btn btn-outline-primary form-control"))}}
+                    {{Form::submit('Create Blog Post',array('class'=>"btn btn-success form-control"))}}
                 </div>
             </div>
             <br>
@@ -74,7 +74,7 @@
                         @if (count($cat)>0)
                         <option selected>Select a Catagory from here..</option>
                         @foreach ($cat as $cat)
-                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                            <option class="form-control" value="{{$cat->id}}">{{$cat->name}}</option>
                         @endforeach
                             
                         @else
@@ -90,7 +90,7 @@
                 </div>
                 <div class="card-body">
                   <p class="card-text">This will be shown as a Blog post cover image</p>
-                  <input type="file" name="cover" class="form-control btn btn-outline-primary" id="">
+                  <input type="file" name="cover" class="form-control-file btn btn-outline-primary" id="">
                 </div>
             </div>
         </div>

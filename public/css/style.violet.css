@@ -136,13 +136,13 @@ button {
   margin: 2rem 0;
 }
 
-.btn:not([class*='outline']) {
+/* .btn:not([class*='outline']) {
   color: #fff;
-}
+} */
 
-.btn:not([class*='outline']):hover, .btn:not([class*='outline']):focus {
+/* .btn:not([class*='outline']):hover, .btn:not([class*='outline']):focus {
   color: #fff !important;
-}
+} */
 
 .border-thick {
   border-width: 4px !important;

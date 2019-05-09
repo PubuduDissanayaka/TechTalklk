@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Http\Request;
 use App\BlogPost;
 use App\Catagory;
 use App\User;
 use Illuminate\Support\Facades\DB;
-//use Image;
 use App\BlogComment;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\Tag;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Notifications\NotifyNewBlogPost;
+use App\Notifications\NotifyNewBlogPostDB;
+use Notification;
+
 
 class BlogPostController extends Controller
 {
@@ -25,18 +29,34 @@ class BlogPostController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cat = DB::table('catagories')->limit(5)->get();
-        $data = BlogPost::orderBy('id','desc')->paginate(10);
-        $popular = BlogPost::orderBy('id','desc')->limit(5)->get();
+
+        $keyword = $request->get('search');
+        $perPage = 10;
+
+        if (!empty($keyword)) {
+            $data = BlogPost::where('title', 'LIKE', "%$keyword%")
+                ->orWhere('body', 'LIKE', "%$keyword%")
+                ->orWhere('user_id', 'LIKE', "%$keyword%")
+                ->orWhere('cat_id', 'LIKE', "%$keyword%")
+                ->latest()->paginate($perPage);
+            $cat = DB::table('catagories')->limit(5)->get();
+            $popular = BlogPost::orderBy('id','desc')->limit(5)->get();
+        } else {
+            $data = BlogPost::latest()->paginate($perPage);
+            $cat = DB::table('catagories')->limit(5)->get();
+            $popular = BlogPost::orderBy('id','desc')->limit(5)->get();
+        }
+
         return view ('blogposts.index')->with('data',$data)->with('cat',$cat)->with('popular',$popular);
+
     }
 
     /**
@@ -65,7 +85,7 @@ class BlogPostController extends Controller
             'user_id' => 'required',
             'cat_id' => 'required',
             'cover' => 'image'
-            
+
         ));
         // store data
         $blogpost = new BlogPost;
@@ -86,11 +106,21 @@ class BlogPostController extends Controller
         } else {
             $blogpost->cover = "no_image.jpg";
         }
-        
+
 
         $blogpost->save();
+
+        // send notifications
+        $users = User::where('id', '!=', auth()->user()->id)->get();
+        Notification::send($users, new NotifyNewBlogPostDB($blogpost));
+        Notification::route('mail', $users)->notify(new NotifyNewBlogPost($blogpost));
+
         // redirect
+        toastr()->success('Blog Post Created successfully!');
         return redirect()->route('blog-posts.show',$blogpost->id);
+
+
+
     }
 
     /**
@@ -105,14 +135,11 @@ class BlogPostController extends Controller
         $comment = $blogpost->comments;
         //$comment = DB::table('blog_comments')->where('post_id', '=', $blogpost->id)->orderBy('updated_at','desc')->get();
         $tags = Tag::all();
-        // $users = User::find($comment->user_id);
-        // $users = User::all();
-        // dd($users);
+
         $cat = DB::table('catagories')->limit(5)->get();
-        // $ud = DB::table('blog_comments')->where('user_id', '=', $users->id)->get();
-        // ->with('comment',$comment)
+
         $popular = BlogPost::orderBy('updated_at','desc')->limit(5)->get();
-        return view('blogposts.show')->with('blogpost',$blogpost)->with('tags', $tags)->with('cat', $cat)->with('popular',$popular);
+        return view('blogposts.show')->with('blogpost',$blogpost)->with('tags', $tags)->with('cat', $cat)->with('popular',$popular)->with('comment',$comment);
 
     }
     /**
@@ -121,9 +148,12 @@ class BlogPostController extends Controller
      * @param  \App\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function edit(BlogPost $blogPost)
+    public function edit($id)
     {
-        //
+
+        $blogpost = BlogPost::find($id);
+        $cat = DB::table('catagories')->limit(5)->get();
+        return view('blogposts.edit')->with('blogpost',$blogpost)->with('cat', $cat);
     }
 
     /**
@@ -133,9 +163,52 @@ class BlogPostController extends Controller
      * @param  \App\BlogPost  $blogPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BlogPost $blogPost)
+    public function update(Request $request, $id)
     {
-        //
+        dd($request);
+        // validate data
+        $this -> validate($request, array(
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'user_id' => 'required',
+            'cat_id' => 'required',
+            'cover' => 'image'
+
+        ));
+        // store data
+        $blogpost = BlogPost::find($id);
+
+        $blogpost->title = $request->title;
+        $blogpost->body = $request->description;
+        $blogpost->user_id = $request->user_id;
+        $blogpost->cat_id = $request->cat_id;
+
+        //cover image
+        if ($request->hasFile('cover')) {
+            //add new photo
+            $oldFilename = $blogpost->cover;
+            $cover = $request->file('cover');
+            $filename = time(). '.' . $cover->getClientOriginalExtension();
+            $location = public_path('img/blog/cover/' . $filename);
+            Image::make($cover)->resize(800,400)->save($location);
+
+
+            //update database
+            $blogpost->cover = $filename;
+
+            //delete old photo
+            Storage::delete('public/img/events/cover/'.$oldFilename);
+
+            $blogpost->save();
+        } else {
+
+        }
+
+
+        $blogpost->save();
+        // redirect
+        toastr()->success('Blog Post has been Updated successfully!');
+        return redirect()->route('blog-posts.show',$blogpost->id);
     }
 
     /**

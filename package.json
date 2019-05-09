@@ -10,16 +10,30 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.8.1",
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.4.0",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17"
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "bootstrap-timepicker": "^0.5.2",
+        "croppie": "^2.6.4",
+        "emoji-mart-vue": "^2.6.6",
+        "font-awesome": "^4.7.0",
+        "jquery-ui": "^1.12.1",
+        "laravel-echo": "^1.5.3",
+        "moment": "^2.24.0",
+        "pusher-js": "^4.4.0",
+        "vue-chat-scroll": "^1.3.5",
+        "vue-croppie": "^2.0.1"
     }
 }

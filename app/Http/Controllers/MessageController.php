@@ -86,13 +86,13 @@ class messageController extends Controller
         //
     }
 
-    public function getChat($id) {
-        $chats = Message::where(function ($query) use ($id) {
+    public function getMessage($id) {
+        $messages = Message::where(function ($query) use ($id) {
             $query->where('user_id', '=', Auth::user()->id)->where('friend_id', '=', $id);
         })->orWhere(function ($query) use ($id) {
             $query->where('user_id', '=', $id)->where('friend_id', '=', Auth::user()->id);
         })->get();
-        return $chats;
+        return $messages;
     }
 
     public function sendChat(Request $request) {

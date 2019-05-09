@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\BlogComment;
 use Illuminate\Http\Request;
 use App\BlogPost;
+use App\User;
+use App\Notifications\NotifyBlogPostOwner;
+
 
 class BlogCommentController extends Controller
 {
@@ -57,6 +60,8 @@ class BlogCommentController extends Controller
         toastr()->success('Commented successfully!');
 
         $comments= BlogComment::all();
+
+        User::find($post->user->id)->notify(new NotifyBlogPostOwner($post));
         return redirect()->route('blog-posts.show', $post)->with('comments', $comments);
     }
 

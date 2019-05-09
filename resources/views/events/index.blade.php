@@ -38,20 +38,23 @@
     <div class="row">
         <div class="col-sm-9">
                 <main role="main">
-                        <div class="album bg-light">
+                        <div class="album">
                           <div class="container">
                   
                             <div class="row">
 
                               @if (count($events)>0)
                               @foreach ($events as $event)    
-                              <div class="col-md-4">
+                              <div class="col-md-6">
                                 <div class="card mb-4 box-shadow">
-                                  <img class="card-img-top img-fluid" src="{{ asset('img/events/cover/' . $event->cover)}}" alt="Card image cap">
+                                  <img class="card-img-top img-fluid" style="height:200px;" src="{{ asset('img/events/cover/' . $event->cover)}}" alt="Card image cap">
                                   <div class="card-body">
                                     <a href="/events/{{$event->id}}"><h4 class="card-title"><strong>{{$event->title}}</strong></h4></a>
-                                    <p class="">{{$event->address}}</p>
-                                  <p class="card-text">{{substr(strip_tags($event->description), 0, 90)}} {{ strlen($event->description) > 90 ? "..." : "" }}</p>
+                                    <p class="lead"></p>
+                                    <p class=""><strong><i class="fas fa-map-marker-alt"></i></strong> {{$event->address}}</p>
+                                    <p><strong><i class="far fa-clock"></i></strong> {{date('g:i A',strtotime($event->start))}} To <span>{{date('g:i A',strtotime($event->end))}}</p>
+                                    <p><strong><i class="far fa-calendar-alt"></i></strong> {{date('F j, Y',strtotime($event->date))}}</p>
+                                      {{-- <p style="text-align: justify;">{{substr(strip_tags($event->description), 0, 200)}} {{ strlen($event->description) > 200 ? "..........." : "" }}</p> --}}
                                     <div class="d-flex justify-content-between align-items-center">
                                       <div class="btn-group">
                                         <a href="/events/{{$event->id}}"><button type="button" class="btn btn-sm btn-outline-info form-control">View</button></a>
@@ -75,7 +78,14 @@
         </div>
         
         <div class="col-sm-3 py-3">
-            Right sidebar items here
+          <form method="GET" action="{{ url('/events') }}" accept-charset="UTF-8" role="search">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Search Events ..." value="{{ request('search') }}">
+                <span class="input-group-append">
+                    <button class="btn btn-success" type="submit"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+          </form>
         </div>
     </div>
 </section>

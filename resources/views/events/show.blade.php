@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSOSbY0FCY3UKXPV3YrBYbZ6CdS01xoxc&callback=initMap"
-async defer>
-</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&callback=initMap" async defer></script>
 
 <style>
 
@@ -33,12 +31,15 @@ async defer>
                                     <p class="eventorg">hosted by : {{$event->user->name}}</p>
                                     <p class="eventorg">From : </p>
                                     <br><br>
-                                    <a href="/events/{{$event->id}}/edit" class="btn btn-success">Edit Event</a>
-                                    <br>
-                                    {{Form::open(['route'=>['events.destroy', $event->id],'method'=>'DELETE'])}}
-                                    <br>
+                                    <div class="block">
+
+                                        <a href="/events/{{$event->id}}/edit" class="btn btn-success">Edit Event</a>
+                                        
+                                        {{Form::open(['route'=>['events.destroy', $event->id],'method'=>'DELETE', 'class'=>'inline'])}}
+                                        <br>
                                         <button type="submit"  class="btn btn-danger"><i class="fa fa-remove"></i> Delete Event</button>
-                                    {!! Form::close() !!}
+                                        {!! Form::close() !!}
+                                    </div>
                                     <br><br>
                                 </div>
                                 <div class="col-sm-4">
@@ -50,7 +51,7 @@ async defer>
                                             </tr>
                                             <tr>
                                                 <td><h1><i class="far fa-clock"></i></h1></td>
-                                                <td><p class="lead"><i class="fas fa-at"></i> {{date('g:i A',strtotime($event->start))}} To <span class="lead">{{date('g:i A',strtotime($event->end))}}</span></p>                       </td>
+                                                <td><p class="lead"><i class="fas fa-at"></i> {{date('g:i A',strtotime($event->start))}} To <span>{{date('g:i A',strtotime($event->end))}}</span></p></td>
                                             </tr>
                                             <tr>
                                                 <td><h1><i class="fas fa-map-marker-alt"></i></h1></td>
@@ -74,6 +75,61 @@ async defer>
                                     <hr>
                                 <p class="lead">Location</p>
                                 <div id="geomap"></div>
+                                <br>
+                                {{-- comments --}}
+                                <div class="event-comments-area">
+                                        {{-- comment form --}}
+                                        <label class="lead">Write Your comment</label>
+                                        {!! Form::open(['route' => 'eventcomments.store']) !!}
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                                    <input type="hidden" name="event_id" value="{{$event->id}}">
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <textarea name="comment" id="" class="form-control event-comment-box" rows="6" required></textarea>
+                                                </div>
+                                                
+                                                <div class="col-sm-12">
+                                                        <br>
+                                                    <input type="submit" value="Post Comment" class="form-control shadow btn btn-success">
+                                                </div>
+                                            </div>
+                                        {{ Form::close()}}  
+                                        <br><br>
+                                            <hr>
+                                        <h4 class="event-com-count"><strong>{{$event->comments->count()}} Comments</strong></h4>
+                                        @if (count($comment)>0)
+                                        @foreach ($comment as $com)
+                                                <div class="event-comment-list">
+                                                    <div class="event-single-comment justify-content-between d-flex">
+                                                        <div class="justify-content-between d-flex">
+                                                            <div class="thumb">
+                                                                <img src="img/blog/c4.jpg" alt="">
+                                                                <p class="lead"></p>
+                                                            </div>
+                                                            <div class="desc">
+                                                                <h5><a href="#"></a><strong class="event-com-user"> {{$com->user->name}}</strong></h5>
+                                                                <p class="date">{{date('F j, Y',strtotime($com->created_at))}} <i class="fa fa-at" aria-hidden="true"></i> {{date('g:i A',strtotime($com->created_at))}}</p>
+                                                                <p class="event-comment blockquote-footer">
+                                                                    {{$com->comment}}
+                                                                </p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="reply-btn">
+                                                            <a href="" class="btn-reply text-uppercase">reply</a>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                                @endforeach
+                                            @endif
+                                            
+                                    </div>
+
+
+
                             </div>
                             <div class="col-sm-4">
                                 <p class="lead">Members</p>

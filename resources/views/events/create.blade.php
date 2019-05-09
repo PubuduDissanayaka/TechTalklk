@@ -113,21 +113,22 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Event Control</h5>
+                                <h5 class="card-title"><strong>Event Control</strong></h5>
                                 <hr>
                                 <br>
                                     <div class="col-md-12">
-                                        {{Form::submit('Create Event',array('class'=>"btn form-control btn-outline-success shadow"))}}
+                                        {{Form::submit('Create Event',array('class'=>"btn form-control btn-success shadow"))}}
                                     </div>
                             </div>
                         </div>
                         <br>
                         <div class="card">
-                            <div class="card-header">
-                                <label class="lead">Event Cover Image</label>
-                            </div>
                             <div class="card-body">
-                                <input type="file" class="form-control btn btn-outline-primary" name="cover" id="">
+                                <div class="card-title">
+                                    <label class="lead"><strong> Event Cover Image</strong></label>
+                                </div>
+                                <hr>
+                                <input type="file" class="form-control-file btn btn-outline-primary" name="cover" id="">
                             </div>
                         </div>
                     </div>
