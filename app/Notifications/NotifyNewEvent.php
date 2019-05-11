@@ -60,7 +60,11 @@ class NotifyNewEvent extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
-            'event' => $this->event,
+            'dataid' => $this->event->id,
+            'datatitle' => $this->event->title,
+            'datacreatedat' => $this->event->created_at,
+            'datauser' => $this->event->user->name,
+            'data' => $this->event,
         ];
     }
 }

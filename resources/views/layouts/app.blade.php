@@ -21,7 +21,7 @@
         .navbar{
             padding: 0px 20px 0px 20px;
         }
-    </style>
+</style>
 
 </head>
 <body>
@@ -75,15 +75,32 @@
                                 @endif
                             </li>
                         @else
+
                         {{-- notifications --}}
-                        <li class="nav-item dropdown ml-auto mynav"><a id="notify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><h3 class="bellicon"><i class="fa fa-bell-o" aria-hidden="true"></i></h3></a>
-                            <div aria-labelledby="notify" class="dropdown-menu">
+                        <li class="nav-item dropdown ml-auto mynav"><a id="notify" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><h3 class="bellicon"><i class="fa fa-bell-o" aria-hidden="true"><span class="badge badge-pill badge-info">{{count(auth()->user()->unreadNotifications)}}</span></i></h3></a>
+                            <div aria-labelledby="notify" class="dropdown-menu notifyarea">
                                 {{-- <div class="dropdown-divider"></div> --}}
-                              <a href="#" class="dropdown-item">Settings</a>
+                            @if (count(Auth::user()->unreadNotifications)>0)
+                                {{-- @forelse (Auth::user()->unreadNotifications as $unread)
+                                    <div class="notfy">
+                                            <a href="/blog-posts/{{$unread->data['dataid']}}" >
+                                            <p class="notifytitle"><small>{{$unread->data['datauser']}}</small> Posted "<strong>{{$unread->data['datatitle']}}</strong>"</p>
+                                            <p>{{$unread->created_at->diffForHumans()}}</p>
+                                            </a>
+                                    </div>
+
+                                @empty
+                                @endforelse --}}
+                            @else
+                            <a href="#" class="notifytitle">No notifications</a>
+
+                            @endif
+
                             </div>
                         </li>
                         {{-- <notification v-bind:notifications="notifications"></notification> --}}
                         {{-- end notifications --}}
+
                             <li class="nav-item dropdown ml-auto mynav">
                                 <a id="userInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
                                     @if ((Auth::User()->avatar)===null)
@@ -119,7 +136,24 @@
         <main>
             @yield('content')
         </main>
+
+        <div class="wrapper">
+            <div class="box-wrap">
+                <div class="box one"></div>
+                <div class="box two"></div>
+                <div class="box three"></div>
+                <div class="box four"></div>
+                <div class="box five"></div>
+                <div class="box six"></div>
+            </div>
+        </div>
+
     </div>
+        <script>
+            $(window).("load",function(){
+                $(".wrapper").fadeOut("slow");
+            });
+        </script>
     @include('layouts._scripts')
     {{-- @include('layouts.toast') --}}
 </body>

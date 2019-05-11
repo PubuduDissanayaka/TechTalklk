@@ -26,9 +26,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- theme stylesheet-->
 <!-- Custom stylesheet - for your changes-->
-<link rel="stylesheet" href="{{asset('css/styles.css')}}" id="theme-stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"/>
+<link rel="stylesheet" href="{{asset('css/styles.css')}}" id="theme-stylesheet">
 
 
 
@@ -37,5 +37,4 @@
 
 
 @toastr_css
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 

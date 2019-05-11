@@ -61,7 +61,11 @@ class NotifyNewBlogPost extends Notification implements ShouldQueue
     public function toDatabase($notifiable)
     {
         return [
-            'blogpost' => $this->blogpost,
+            'dataid' => $this->blogpost->id,
+            'datatitle' => $this->blogpost->title,
+            'datacreatedat' => $this->blogpost->created_at,
+            'datauser' => $this->blogpost->user->name,
+            'data' => $this->blogpost,
         ];
     }
 }

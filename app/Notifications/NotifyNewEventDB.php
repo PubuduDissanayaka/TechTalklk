@@ -42,7 +42,11 @@ class NotifyNewEventDB extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'event' => $this->event,
+            'dataid' => $this->event->id,
+            'datatitle' => $this->event->title,
+            'datacreatedat' => $this->event->created_at,
+            'datatuser' => $this->event->user->name,
+            'data' => $this->event,
         ];
     }
 }

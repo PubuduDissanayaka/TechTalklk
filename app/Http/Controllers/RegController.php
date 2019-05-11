@@ -52,7 +52,6 @@ class RegController extends Controller
      */
     public function store(Request $request)
     {
-
         $user = new User;
 
         $user->role_id = $request->acctype;
@@ -69,6 +68,8 @@ class RegController extends Controller
         // dd($getid);
         // dd($getid[0]->id);
         $details->user_id = $getid[0]->id;
+        $details->gender = $request->gender;
+        $details->nic = $request->nic;
         $details->dob = $request->dob;
         $details->tel = $request->phone;
         $details->website = $request->website;
@@ -76,6 +77,7 @@ class RegController extends Controller
         $details->github = $request->github;
 
         $details->save();
+
 
         toastr()->success('Your Account Created Successfully! Check your email to activate and verify your account');
         return redirect('/login');

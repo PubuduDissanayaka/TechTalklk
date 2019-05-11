@@ -14,6 +14,8 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
+    dd(auth()->user()->unreadNotifications);
+
     return view('welcome');
 });
 
@@ -63,9 +65,6 @@ Route::post('/chat/getChat/{id}', 'ChatController@getChat')->middleware('auth');
 
 Route::post('/chat/sendChat', 'ChatController@sendChat')->middleware('auth');
 
-
-Route::resource('jobs', 'JobsController');
-
 Route::resource('news-feed', 'NewsFeedController');
 
 Route::resource('eventcomments', 'EventCommentController');
@@ -75,3 +74,5 @@ Route::resource('register-user', 'RegController');
 Route::get('/verification/{token}' , 'RegController@verification');
 
 
+
+Route::resource('vacancy', 'VacancyController');

@@ -343,3 +343,20 @@ a.btn.btn-link.forgetpass {
     font-size: smaller;
     font-family: inherit;
 }
+
+
+.notfy {
+    padding: 0px 10px 0px 10px;
+    margin: 0px;
+}
+
+p.notifytitle {
+    padding: 0px;
+    margin: 0px;
+    width: 300px;
+}
+
+.dropdown-menu.show.notifyarea {
+    height: 300px;
+    overflow-y: scroll;
+}

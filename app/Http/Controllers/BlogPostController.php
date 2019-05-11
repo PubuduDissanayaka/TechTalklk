@@ -165,7 +165,7 @@ class BlogPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
         // validate data
         $this -> validate($request, array(
             'title' => 'required|max:255',

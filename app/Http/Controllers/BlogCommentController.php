@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\BlogPost;
 use App\User;
 use App\Notifications\NotifyBlogPostOwner;
-
+use App\Notifications\NotifyBlogPostOwnerDB;
+use Notification;
 
 class BlogCommentController extends Controller
 {
@@ -61,7 +62,16 @@ class BlogCommentController extends Controller
 
         $comments= BlogComment::all();
 
-        User::find($post->user->id)->notify(new NotifyBlogPostOwner($post));
+
+        // $user = $post->user->id;
+
+        $user = $comment->post_id->id;
+        dd($user);
+
+        $user->notify(new NotifyBlogPostOwnerDB($comment));
+        // Notification::route('mail', $user)->notify(new NotifyBlogPostOwner($comment));
+
+        // User::find($post->user->id)->notify(new NotifyBlogPostOwner($post));
         return redirect()->route('blog-posts.show', $post)->with('comments', $comments);
     }
 

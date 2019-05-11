@@ -13,6 +13,7 @@ class NotifyNewBlogPostDB extends Notification
     use Queueable;
     public $blogpost;
 
+
     /**
      * Create a new notification instance.
      *
@@ -21,6 +22,7 @@ class NotifyNewBlogPostDB extends Notification
     public function __construct($blogpost)
     {
         $this->blogpost = $blogpost;
+
     }
 
     /**
@@ -43,7 +45,11 @@ class NotifyNewBlogPostDB extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'blogpost' => $this->blogpost,
+            'dataid' => $this->blogpost->id,
+            'datatitle' => $this->blogpost->title,
+            'datacreatedat' => $this->blogpost->created_at,
+            'datauser' => $this->blogpost->user->name,
+            'data' => $this->blogpost,
         ];
     }
 }

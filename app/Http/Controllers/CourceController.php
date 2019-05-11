@@ -17,7 +17,7 @@ class CourcesController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -47,6 +47,7 @@ class CourcesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         // validate data
         $this -> validate($request, array(
             'title' => 'required|max:255',
@@ -61,7 +62,7 @@ class CourcesController extends Controller
         $cource->title = $request->title;
         $cource->description = $request->description;
         $cource->google = $request->google;
-        
+
 
         //cover image
         if ($request->hasFile('cover')) {
@@ -77,6 +78,7 @@ class CourcesController extends Controller
 
         $cource->save();
         // redirect
+        toastr()->success('Cource added successfully!');
         return redirect()->route('cources.show',$cource->id);
     }
 

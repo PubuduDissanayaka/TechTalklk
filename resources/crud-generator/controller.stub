@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace DummyNamespace;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use DummyRootNamespaceHttp\Requests;
+use DummyRootNamespaceHttp\Controllers\Controller;
 
-use App\Job;
+use DummyRootNamespace{{modelNamespace}}{{modelName}};
 use Illuminate\Http\Request;
 
-class JobsController extends Controller
+class DummyClass extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,19 +18,15 @@ class JobsController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 15;
+        $perPage = {{pagination}};
 
         if (!empty($keyword)) {
-            $jobs = Job::where('title', 'LIKE', "%$keyword%")
-                ->orWhere('description', 'LIKE', "%$keyword%")
-                ->orWhere('jobrole', 'LIKE', "%$keyword%")
-                ->orWhere('category', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+            ${{crudName}} = {{modelName}}::{{whereSnippet}}latest()->paginate($perPage);
         } else {
-            $jobs = Job::latest()->paginate($perPage);
+            ${{crudName}} = {{modelName}}::latest()->paginate($perPage);
         }
 
-        return view('jobs.index', compact('jobs'));
+        return view('{{viewPath}}{{viewName}}.index', compact('{{crudName}}'));
     }
 
     /**
@@ -40,7 +36,7 @@ class JobsController extends Controller
      */
     public function create()
     {
-        return view('jobs.create');
+        return view('{{viewPath}}{{viewName}}.create');
     }
 
     /**
@@ -52,13 +48,12 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        {{validationRules}}
         $requestData = $request->all();
-        
-        Job::create($requestData);
+        {{fileSnippet}}
+        {{modelName}}::create($requestData);
 
-        toastr()->success('Job added successfully!');
-        return redirect('jobs');
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} added!');
     }
 
     /**
@@ -70,9 +65,9 @@ class JobsController extends Controller
      */
     public function show($id)
     {
-        $job = Job::findOrFail($id);
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
 
-        return view('jobs.show', compact('job'));
+        return view('{{viewPath}}{{viewName}}.show', compact('{{crudNameSingular}}'));
     }
 
     /**
@@ -84,9 +79,9 @@ class JobsController extends Controller
      */
     public function edit($id)
     {
-        $job = Job::findOrFail($id);
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
 
-        return view('jobs.edit', compact('job'));
+        return view('{{viewPath}}{{viewName}}.edit', compact('{{crudNameSingular}}'));
     }
 
     /**
@@ -99,13 +94,13 @@ class JobsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        {{validationRules}}
         $requestData = $request->all();
-        
-        $job = Job::findOrFail($id);
-        $job->update($requestData);
+        {{fileSnippet}}
+        ${{crudNameSingular}} = {{modelName}}::findOrFail($id);
+        ${{crudNameSingular}}->update($requestData);
 
-        return redirect('jobs')->with('flash_message', 'Job updated!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} updated!');
     }
 
     /**
@@ -117,8 +112,8 @@ class JobsController extends Controller
      */
     public function destroy($id)
     {
-        Job::destroy($id);
+        {{modelName}}::destroy($id);
 
-        return redirect('jobs')->with('flash_message', 'Job deleted!');
+        return redirect('{{routeGroup}}{{viewName}}')->with('flash_message', '{{modelName}} deleted!');
     }
 }
