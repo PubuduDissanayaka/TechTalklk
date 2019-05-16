@@ -1,63 +1,98 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            @include('admin.sidebar')
+{{-- sideBar --}}
+<div class="d-flex align-items-stretch">
+    <div id="sidebar" class="sidebar">
+        @include('layouts._sidebar')
+    </div>
+    {{-- end sideBar --}}
 
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">Vacancy</div>
-                    <div class="card-body">
-                        <a href="{{ url('/vacancy/create') }}" class="btn btn-success btn-sm" title="Add New Vacancy">
+    {{-- page holder --}}
+    <div class="page-holder w-100 d-flex flex-wrap">
+        <div class="container-fluid px-xl-4">
+            <section class="py-2">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron vacjumbo">
+                    <h2>
+                        TechTalk Job Market!
+                    </h2>
+                    <p>
+                        This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+                    </p>
+                    <p>
+                        @if ((Auth::user()->role_id) == 4 | (Auth::user()->role_id) == 5 | (Auth::user()->role_id) == 1 )
+                            <a href="{{ url('/vacancy/create') }}" class="btn btn-success btn-sm" title="Add New NewsFeed">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
+                        @else
 
+                        @endif
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="list-group">
+                            @forelse ($vacancy as $item)
+                                <a href="/vacancy/{{$item->id}}" class="list-group-item list-group-item-action flex-column align-items-start shadow">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <img src="{{ asset('img/vacancy/cover/' . $item->cover)}}" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="col-md-8">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <p class="mb-1 lead">{{$item->title}}</p>
+                                                    <small>{{$item->created_at->diffForHumans()}}</small>
+                                                </div>
+                                                <p class="mb-1" style="text-align: justify;">{{substr(strip_tags($item->details), 0, 500)}} {{ strlen($item->details) > 500 ? "..........." : "" }}</p>
+                                                <button href="/vacancy/{{$item->id}}" class="btn btn-info btn-sm">Read More <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i></button>
+                                                <br>
+                                                <small><p class="pull-right text-muted">Published by: {{$item->user->name}}</p></small>
+                                        </div>
+                                    </div>
+                                </a>
+                                <br>
+
+                            @empty
+                                <p class="lead"> No Job Vacancies Available Here</p>
+                            @endforelse
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-4 offset-4 d-block">
+                                    <div class="pagination-wrapper d-block"> {!! $vacancy->appends(['search' => Request::get('search')])->render() !!} </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <form method="GET" action="{{ url('/vacancy') }}" accept-charset="UTF-8" class="form-inline my-2 my-lg-0 float-right" role="search">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ request('search') }}">
+                                <input type="text" class="form-control" name="search" placeholder="Search Job Vacancies..." value="{{ request('search') }}">
                                 <span class="input-group-append">
-                                    <button class="btn btn-secondary" type="submit">
+                                    <button class="btn btn-success" type="submit">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
                             </div>
                         </form>
-
-                        <br/>
-                        <br/>
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th><th>Title</th><th>Details</th><th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($vacancy as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->title }}</td><td>{{ $item->details }}</td>
-                                        <td>
-                                            <a href="{{ url('/vacancy/' . $item->id) }}" title="View Vacancy"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/vacancy/' . $item->id . '/edit') }}" title="Edit Vacancy"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-
-                                            <form method="POST" action="{{ url('/vacancy' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
-                                                {{ method_field('DELETE') }}
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Vacancy" onclick="return confirm(&quot;Confirm delete?&quot;)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            <div class="pagination-wrapper"> {!! $vacancy->appends(['search' => Request::get('search')])->render() !!} </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+            </section>
+        </div>
+
+        {{-- end pageholder --}}
+
+    </div>
+</div>
 @endsection
+

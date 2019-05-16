@@ -21,8 +21,8 @@
   <body>
     <div id="map"></div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&callback=initMap"
-    async defer></script> 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&callback=initMap"
+    async defer></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
@@ -33,7 +33,7 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
     var geocoder;
     var map;
     var marker;
-    
+
     /*
         * Google Map with marker
         */
@@ -42,7 +42,7 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
         var initialLong = $('.search_longitude').val();
         initialLat = initialLat?initialLat:6.795002999999999;
         initialLong = initialLong?initialLong:79.90075890000003;
-    
+
         var latlng = new google.maps.LatLng(initialLat, initialLong);
         var options = {
             zoom: 16,
@@ -50,17 +50,17 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
             componentRestrictions: {country: "lk"},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-    
+
         map = new google.maps.Map(document.getElementById("map"), options);
-    
+
         geocoder = new google.maps.Geocoder();
-    
+
         marker = new google.maps.Marker({
             map: map,
             draggable: true,
             position: latlng
         });
-    
+
         google.maps.event.addListener(marker, "dragend", function () {
             var point = marker.getPosition();
             map.panTo(point);
@@ -74,13 +74,13 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
                 }
             });
         });
-    
+
     }
-    
+
     $(document).ready(function () {
         //load google map
         initialize();
-        
+
         /*
             * autocomplete location search
             */
@@ -111,8 +111,8 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
                 }
             });
         });
-        
-        
+
+
         /*
             * Point location on google map
             */
@@ -131,7 +131,7 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
             });
             e.preventDefault();
         });
-    
+
         //Add listener to marker for reverse geocoding
         google.maps.event.addListener(marker, 'drag', function () {
             geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {

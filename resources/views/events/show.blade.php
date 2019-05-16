@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&callback=initMap" async defer></script>
 
 <style>
 
@@ -34,7 +34,7 @@
                                     <div class="block">
 
                                         <a href="/events/{{$event->id}}/edit" class="btn btn-success">Edit Event</a>
-                                        
+
                                         {{Form::open(['route'=>['events.destroy', $event->id],'method'=>'DELETE', 'class'=>'inline'])}}
                                         <br>
                                         <button type="submit"  class="btn btn-danger"><i class="fa fa-remove"></i> Delete Event</button>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     {{-- end of jumbotron --}}
-            
+
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-8">
@@ -89,13 +89,13 @@
                                                 <div class="col-sm-12">
                                                     <textarea name="comment" id="" class="form-control event-comment-box" rows="6" required></textarea>
                                                 </div>
-                                                
+
                                                 <div class="col-sm-12">
                                                         <br>
                                                     <input type="submit" value="Post Comment" class="form-control shadow btn btn-success">
                                                 </div>
                                             </div>
-                                        {{ Form::close()}}  
+                                        {{ Form::close()}}
                                         <br><br>
                                             <hr>
                                         <h4 class="event-com-count"><strong>{{$event->comments->count()}} Comments</strong></h4>
@@ -115,7 +115,7 @@
                                                                     {{$com->comment}}
                                                                 </p>
                                                             </div>
-                                                            
+
                                                         </div>
                                                         <div class="reply-btn">
                                                             <a href="" class="btn-reply text-uppercase">reply</a>
@@ -125,7 +125,7 @@
                                                 </div>
                                                 @endforeach
                                             @endif
-                                            
+
                                     </div>
 
 
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     {{-- end of description --}}
-                    
+
                     <input type="hidden" id="lat"  value="{{$event->latitude}}">
                     <input type="hidden" id="lng"  value="{{$event->longtitude}}">
         </section>
@@ -157,29 +157,29 @@
 <script>
     var map;
     var marker;
-    
+
     /*
      * Google Map with marker
      */
     function initialize() {
         var lat = document.getElementById("lat").value;
         var lng = document.getElementById("lng").value;
-    
+
         var latlng = new google.maps.LatLng(lat, lng);
         var options = {
             zoom: 18,
             center: latlng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-    
+
         map = new google.maps.Map(document.getElementById("geomap"), options);
-    
+
         marker = new google.maps.Marker({
             map: map,
             position: latlng
         });
     }
-    
+
     $(document).ready(function () {
         //load google map
         initialize();

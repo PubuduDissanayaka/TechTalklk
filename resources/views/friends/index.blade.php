@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('css')
+<style>
+
+</style>
+@endsection
+
 @section('content')
     {{-- sideBar --}}
     <div class="d-flex align-items-stretch">
@@ -7,7 +13,6 @@
             @include('layouts._sidebar')
         </div>
         {{-- end sideBar --}}
-
 
         {{-- page holder --}}
         <div class="page-holder w-100 d-flex flex-wrap">
@@ -18,6 +23,7 @@
                             <div class="col-sm-3">
                                 <div class="card friend-card">
                                     <img class="card-img-top" src="" alt="">
+                                    {{-- <img class="img-member circle" src="http://via.placeholder.com/150x150/333333/FFFffff"> --}}
                                     <onlineuser v-bind:friend="{{ $friend }}" v-bind:onlineusers="onlineUsers"></onlineuser>
                                     <div class="card-body">
                                         <div class="card-title">

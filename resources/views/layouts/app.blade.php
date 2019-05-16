@@ -113,6 +113,7 @@
                                 <div aria-labelledby="userInfo" class="dropdown-menu">
                                     <a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">{{ Auth::user()->name }}</strong><small>Web Developer</small></a>
                                   <div class="dropdown-divider"></div>
+                                  <a href="/profile" class="dropdown-item"><i class="far fa-user"></i> Profile</a>
                                   <a href="/dashboard" class="dropdown-item">Dashboard</a>
                                   <a href="#" class="dropdown-item">Settings</a>
                                   <a href="#" class="dropdown-item">Activity log</a>

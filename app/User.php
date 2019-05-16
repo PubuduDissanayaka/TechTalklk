@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use Notifiable;
+    // use Friendable;
 
     /**
      * The attributes that are mass assignable.
@@ -77,5 +78,10 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
     public function detail()
     {
         return $this->hasOne('App\UserDetail');
+    }
+
+    public function study()
+    {
+        return $this->hasMany('App\Study');
     }
 }

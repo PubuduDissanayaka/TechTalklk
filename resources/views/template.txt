@@ -1,0 +1,37 @@
+@extends('layouts.app')
+
+@section('css')
+
+@endsection
+
+@section('content')
+@if (session('status'))
+<div class="alert alert-success" role="alert">
+    {{ session('status') }}
+</div>
+@endif
+{{-- sideBar --}}
+<div class="d-flex align-items-stretch">
+    <div id="sidebar" class="sidebar">
+        @include('layouts._sidebar')
+    </div>
+    {{-- end sideBar --}}
+
+    {{-- page holder --}}
+    <div class="page-holder w-100 d-flex flex-wrap">
+        <div class="container-fluid px-xl-4">
+            <section class="">
+
+
+            </section>
+        </div>
+
+        {{-- end pageholder --}}
+
+    </div>
+</div>
+@endsection
+
+@section('script')
+
+@endsection

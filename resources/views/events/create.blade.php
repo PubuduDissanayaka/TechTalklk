@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
 @section('css')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&callback=initMap" async defer></script>
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ck5lksam8dja2hvssb8hndfyhnd9qxvwobl1z6lxjuwyswym"></script>
 <script>
-    tinymce.init({ 
+    tinymce.init({
         selector:'#blogwrite',
-        resize: false,                   
+        resize: false,
         plugins: 'link image table advlist autolink imagetools table spellchecker lists charmap print preview',
-        contextmenu_never_use_native: true, 
+        contextmenu_never_use_native: true,
         plugins : 'advlist autolink table link image lists charmap print preview'
     });
 </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        
+
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCprWaOd8cfSlpg5ouR5ikC97BAPEkID3E&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&libraries=places"></script>
 
 
 @endsection
@@ -35,7 +35,7 @@
 <div class="page-holder w-100 d-flex flex-wrap">
     <div class="container-fluid px-xl-4">
         <section class="py-2">
-            
+
             {!! Form::open(['route' => 'events.store', 'data-parsley-validate'=> '', 'files'=> true]) !!}
             <div class="row">
                     <div class="col-sm-8">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col">
 
@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
                                 </form>
-    
+
                                 <!-- display google map -->
                                 <div id="geomap"></div>
                                 <br>
@@ -104,8 +104,8 @@
                                 <input type="hidden" name="lng" class="search_longitude" size="30">
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
 
                     {{-- submit side --}}
@@ -154,7 +154,7 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
     var geocoder;
     var map;
     var marker;
-    
+
     /*
         * Google Map with marker
         */
@@ -163,7 +163,7 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
         var initialLong = $('.search_longitude').val();
         initialLat = initialLat?initialLat:6.795002999999999;
         initialLong = initialLong?initialLong:79.90075890000003;
-    
+
         var latlng = new google.maps.LatLng(initialLat, initialLong);
         var options = {
             zoom: 16,
@@ -171,17 +171,17 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
             componentRestrictions: {country: "lk"},
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-    
+
         map = new google.maps.Map(document.getElementById("geomap"), options);
-    
+
         geocoder = new google.maps.Geocoder();
-    
+
         marker = new google.maps.Marker({
             map: map,
             draggable: true,
             position: latlng
         });
-    
+
         google.maps.event.addListener(marker, "dragend", function () {
             var point = marker.getPosition();
             map.panTo(point);
@@ -195,13 +195,13 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
                 }
             });
         });
-    
+
     }
-    
+
     $(document).ready(function () {
         //load google map
         initialize();
-        
+
         /*
             * autocomplete location search
             */
@@ -232,8 +232,8 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
                 }
             });
         });
-        
-        
+
+
         /*
             * Point location on google map
             */
@@ -252,7 +252,7 @@ var searchBox = new google.maps.places.SearchBox(document.getElementById('search
             });
             e.preventDefault();
         });
-    
+
         //Add listener to marker for reverse geocoding
         google.maps.event.addListener(marker, 'drag', function () {
             geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {

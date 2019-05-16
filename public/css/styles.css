@@ -327,10 +327,6 @@ p.card-text.friend-card-text {
     color: whitesmoke;
 }
 
-.nav-link{
-    padding: 0;
-}
-
 h3.bellicon {
     margin: auto;
     margin-top: 5px;
@@ -360,3 +356,24 @@ p.notifytitle {
     height: 300px;
     overflow-y: scroll;
 }
+
+.lead {
+  font-size: 1.125rem;
+  font-weight: 300;
+}
+
+.vacjumbo {
+    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    color: white;
+}
+
+.vacjumboshow{
+background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    color: white;
+}
+
+.jumbotron.studyjumbo {
+    background-image: linear-gradient(to top, #1e3c72 0%, #1e3c72 1%, #2a5298 100%);
+    color: white;
+}
+

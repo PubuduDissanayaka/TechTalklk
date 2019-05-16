@@ -58,13 +58,30 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->has('cover') ? 'has-error' : ''}}">
-                                        <label for="cover" class="control-label">{{ 'Cover Image' }}</label>
+                                        <label for="cover" class="control-label">{{ 'Cover Image (.jpg)' }}</label>
                                         <input class="form-control-file" name="cover" type="file" id="cover" value="{{ isset($vacancy->cover) ? $vacancy->cover : ''}}" >
                                         {!! $errors->first('cover', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{-- <div class="form-group {{ $errors->has('end') ? 'has-error' : ''}}">
+                                            <label for="end" class="control-label">{{ 'End Date' }}</label>
+                                            <select name="catagory" id=""></select>
+                                            <input class="form-control" name="end" type="date" id="end" value="{{ isset($vacancy->end) ? $vacancy->end : ''}}" >
+                                            {!! $errors->first('end', '<p class="help-block">:message</p>') !!}
+                                    </div> --}}
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group {{ $errors->has('document') ? 'has-error' : ''}}">
+                                        <label for="document" class="control-label">{{ 'Upload File (.pdf)' }}</label>
+                                        <input class="form-control-file" name="document" type="file" id="document" value="{{ isset($vacancy->document) ? $vacancy->document : ''}}" >
+                                        {!! $errors->first('document', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                </div>
+                            </div>
 
                             <input type="hidden"  name="user_id" value="{{ Auth::user()->id }}" required>
 

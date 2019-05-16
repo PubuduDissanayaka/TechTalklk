@@ -14,14 +14,12 @@
 Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
-    dd(auth()->user()->unreadNotifications);
-
     return view('welcome');
 });
 
-// Route::get('/map', function () {
-//     return view('events.testmap');
-// });
+Route::get('/map', function () {
+    return view('events.testmap');
+});
 
 // Auth::routes();
 
@@ -39,13 +37,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/profile', function () {
-    return view('users.profile');
-});
+
+Route::resource('/profile', 'ProfileController');
 
 Route::resource('blog-posts', 'BlogPostController');
-
-Route::resource('cources', 'CourcesController');
 
 Route::resource('catagories', 'CatagoryController');
 
@@ -75,4 +70,12 @@ Route::get('/verification/{token}' , 'RegController@verification');
 
 
 
-Route::resource('vacancy', 'VacancyController');
+Route::resource('vacancy', 'VacancyController')->middleware('auth');
+Route::post('/vacancy/apply', 'VacancyController@apply')->middleware('auth')->name('cv.apply');
+
+
+Route::resource('study', 'StudyController');
+Route::post('/study/apply', 'StudyController@apply')->middleware('auth')->name('study.apply');
+
+Route::resource('studycomments', 'StudyCommentController');
+
