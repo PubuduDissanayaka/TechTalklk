@@ -377,3 +377,35 @@ background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
     color: white;
 }
 
+.card-body.ratecardbody {
+    padding: 10px;
+}
+
+p.studycountusrestar {
+    text-align: -webkit-center;
+    /* text-align: center; */
+}
+
+.singlerate {
+    padding: 4px;
+    margin: 5px;
+    color: darkblue;
+    border-left: solid 2px blueviolet;
+}
+
+p.card-title.d-inline.ratesingleuser {
+    font-size: large;
+    font-family: inherit;
+}
+
+.rating-disabled .rating-input, .rating-disabled .rating-stars {
+    cursor: not-allowed;
+    /* display: block; */
+    margin: auto;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+

@@ -79,3 +79,7 @@ Route::post('/study/apply', 'StudyController@apply')->middleware('auth')->name('
 
 Route::resource('studycomments', 'StudyCommentController');
 
+Route::resource('studyrating', 'StudyRatingController');
+
+
+

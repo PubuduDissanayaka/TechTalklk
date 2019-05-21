@@ -36,29 +36,46 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card">
-                        <img class="card-img-top rounded-circle mx-auto d-block" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" alt="Card image cap">
+                        <img class="rounded-circle mx-auto d-block" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg" alt="Card image cap" width="200" height="auto">
                         <div class="card-body">
-                            <p class="card-text lead">{{Auth::user()->name}} {{" "}} {{Auth::user()->last_name}}</p>
-                            <p class="card-text">{{Auth::user()->detail->designation}}</p>
-                            {{-- @if ((Auth::user()->id)==$user->id)
-
-                            @else
-
-                            @endif --}}
-                            <a href="#" class="btn btn-primary"><i class="far fa-envelope"></i> Send Message</a>
+                            <p class="card-text lead">{{Auth::user()->name}} {{" "}} {{(Auth::user()->last_name)}}</p>
+                            <p class="card-text">{{isset(Auth::user()->detail->designation) ? Auth::user()->detail->designation : ''}}</p>
+                            <a href="#" class="btn btn-primary btn-block btn-sm"><i class="far fa-envelope"></i> Send Message</a>
                         </div>
                     </div>
-                    <img alt="Bootstrap Image Preview" src="" class="" />
-                    <p class="lead text-info text-center">
-                        Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor. Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales nisi id sodales. Proin consectetur, nisi id commodo imperdiet, metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod ultrices massa, et feugiat ipsum consequat eu.</small>
-                    </p>
+                    <br>
+                    {{-- <img alt="Bootstrap Image Preview" src="" class="" /> --}}
+                    <div class="card">
+                        <p class="card-header lead">Bio</p>
+                        <div class="card-body">
+                            <p class="card-text text-danger">
+                                {{isset(Auth::user()->detail->bio) ? Auth::user()->detail->bio : 'no bio'}}
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <p class="card-header lead">Friends</p>
+                        <div class="card-body">
+                            <div class="list-group">
+                                @forelse ($friends as $item)
+                                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                        <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{$item->name}}</h5>
+                                        <small>3 days ago</small>
+                                        </div>
+                                    </a>
+                                @empty
+
+                                @endforelse
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>

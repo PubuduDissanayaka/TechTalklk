@@ -551,14 +551,14 @@
         theme: '',
         language: 'en',
         stars: 5,
-        filledStar: '<i class="glyphicon glyphicon-star"></i>',
-        emptyStar: '<i class="glyphicon glyphicon-star-empty"></i>',
+        filledStar: '<i class="fas fa-star"></i>',
+        emptyStar: '<i class="far fa-star"></i>',
         containerClass: '',
         size: 'md',
         animate: true,
         displayOnly: false,
         rtl: false,
-        showClear: true,
+        showClear: false,
         showCaption: true,
         starCaptionClasses: {
             0.5: 'label label-danger badge-danger',
@@ -572,7 +572,7 @@
             4.5: 'label label-success badge-success',
             5: 'label label-success badge-success'
         },
-        clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
+        clearButton: '<i class="fas fa-ban"></i>',
         clearButtonBaseClass: 'clear-rating',
         clearButtonActiveClass: 'clear-rating-active',
         clearCaptionClass: 'label label-default badge-secondary',
@@ -590,16 +590,16 @@
     $.fn.ratingLocales.en = {
         defaultCaption: '{rating} Stars',
         starCaptions: {
-            0.5: 'Half Star',
-            1: 'One Star',
-            1.5: 'One & Half Star',
-            2: 'Two Stars',
-            2.5: 'Two & Half Stars',
-            3: 'Three Stars',
-            3.5: 'Three & Half Stars',
-            4: 'Four Stars',
-            4.5: 'Four & Half Stars',
-            5: 'Five Stars'
+            0.5: '0.5 Star',
+            1: '1 Star',
+            1.5: '1.5 Star',
+            2: '2 Stars',
+            2.5: '2.5 Stars',
+            3: '3 Stars',
+            3.5: '3.5 Stars',
+            4: '4 Stars',
+            4.5: '4.5 Stars',
+            5: '5 Stars'
         },
         clearButtonTitle: 'Clear',
         clearCaption: 'Not Rated'

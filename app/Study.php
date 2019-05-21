@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use App\Study;
+use App\StudyRating;
 
 class Study extends Model
 {
@@ -37,4 +40,17 @@ class Study extends Model
         return $this->hasMany('App\StudyComment');
     }
 
+    public function studyratings()
+    {
+        return $this->hasMany('App\StudyRating');
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany('App\StudyRating');
+    }
+
+    public function getavarage(){
+        return DB::table('study_ratings');
+    }
 }

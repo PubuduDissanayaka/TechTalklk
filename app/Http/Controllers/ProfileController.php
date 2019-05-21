@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Friend;
+use App\User;
+use Auth;
+
 class ProfileController extends Controller
 {
     /**
@@ -13,7 +17,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('users.profile');
+        $friends = Auth::user()->friends();
+        return view('users.profile', compact('friends'));
     }
 
     /**
@@ -45,7 +50,10 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        $friends = $user->friends();
+        return view('users.profile', compact('friends'));
     }
 
     /**

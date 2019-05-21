@@ -34,6 +34,7 @@ class CreateStudiesTable extends Migration
      */
     public function down()
     {
+        $table->dropForeign('user_id');
         Schema::drop('studies');
     }
 }

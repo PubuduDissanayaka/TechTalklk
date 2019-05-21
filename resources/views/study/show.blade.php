@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 @section('css')
-<script src="{{asset('js/star/star-rating.js')}}" type="text/javascript"></script>
-    <link href="{{asset('css/star/star-rating.css')}}" media="all" rel="stylesheet" type="text/css" />
-    <link href="{{asset('css/star/themes/krajee-fas/theme.css')}}" media="all" rel="stylesheet" type="text/css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+<link href="/css/star/star-rating.min.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="/js/star/star-rating.js" type="text/javascript"></script>
+<link href="/css/star/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
 <script>
 $(document).on('ready', function(){
-    $('#input-9').rating();
+    $('#study').rating();
+    }
+});
+$(document).on('ready', function(){
+    $('#show').rating();
+    }
 });
 </script>
 @endsection
-
-{{-- @section('parsley.min.js')
-    {!! Html::styles() !!}
-@endsection --}}
 
 @section('content')
 @if (session('status'))
@@ -139,28 +141,97 @@ $(document).on('ready', function(){
 
                                     {{-- sidebar --}}
                                     <div class="col-md-5">
-                                        {{-- ratings --}}
-                                        <form action="#basic-example-9" method="post">
-                                            <input id="input-9" name="input-9" required class="rating-loading">
-                                            <hr>
-                                            <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
-                                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                        </form>
-
-                                        {{-- end ratings --}}
-                                        <br>
                                         <a href="{{ url('/study') }}" title="Back"><button class="btn btn-warning btn-sm btn-block"><i class="fa fa-arrow-left" aria-hidden="true"></i>  Back</button></a>
                                         <br>
-                                        <a id="modal-229234" href="#modal-container-229234" role="button" data-toggle="modal" class="btn btn-block btn-lg btn-success">
+
+                                        <a id="modal-229234" href="#modal-container-229234" role="button" data-toggle="modal" class="btn btn-block btn-sm btn-success">
                                             Send Application
                                         </a>
 
                                         <br>
                                         @if (isset($study->document))
-                                            <a href="{{asset('storage/uploads/study/documents/'.$study->document)}}" download class="btn btn-block btn-blue"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download Document</a>
+                                            <a href="{{asset('storage/uploads/study/documents/'.$study->document)}}" download class="btn btn-block btn-sm btn-blue"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download Document</a>
                                         @else
 
                                         @endif
+                                        <br>
+                                        {{-- ratings --}}
+
+                                        <div class="card">
+                                            <h5 class="card-header">Rating</h5>
+                                            <div class="card-body">
+                                                <p class="card-text">Put your ratings for this programme</p>
+                                                {!! Form::open(['route' => 'studyrating.store', 'data-parsley-validate'=> '', 'files'=> true]) !!}
+                                                    <input id="study" name="values" required class="rating rating-loading" value="" data-min="0" data-max="5" data-step="1" data-size="lg">
+                                                    <br>
+                                                    <div class="col-md-9">
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input id="customRadioInline1" type="radio" name="star_status" value="positive" class="custom-control-input">
+                                                            <label for="customRadioInline1" class="custom-control-label">Positive</label>
+                                                        </div>
+                                                        <div class="custom-control custom-radio custom-control-inline">
+                                                            <input id="customRadioInline2" type="radio" name="star_status" value="negative" class="custom-control-input">
+                                                            <label for="customRadioInline2" class="custom-control-label">Negative</label>
+                                                        </div>
+                                                    </div>
+                                                    <textarea class="form-control" name="feedback" id=""rows="4"></textarea>
+                                                    <br>
+                                                    <input type="text" hidden required value="{{Auth::user()->id}}" name="user_id">
+                                                    <input type="text" hidden required value="{{$study->id}}" name="study_id">
+                                                    <button type="submit" class="btn btn-warning btn-block btn-sm">Submit</button><br>
+                                                    <input type="reset" value="Clear" class="btn btn-block btn-danger btn-sm">
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                        {{-- end ratings --}}
+                                        <br>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Feedbacks
+                                            </div>
+                                            <div class="card-body ratecardbody">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="display-4 d-flex justify-content-center clearfix">{{round($avarage,1)}}</div>
+                                                        <p class="studycountusrestar"><i class="fa fa-user-o" aria-hidden="true"></i> {{count($study->studyratings)}}</p>
+                                                        <input id="show" name="values" class="rating clearfix rating-loading d-inline" value="{{round($avarage,1)}}" data-min="0" data-max="5" data-step="0.5" readonly data-size="sm">
+                                                    </div>
+
+                                                    <div class="col-md-8">
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{$fivepresentage}}%" aria-valuenow="{{$fivepresentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div><br>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: {{$fourpresentage}}%" aria-valuenow="{{$fourpresentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div><br>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: {{$threepresentage}}%" aria-valuenow="{{$threepresentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div><br>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: {{$twopresentage}}%" aria-valuenow="{{$twopresentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div><br>
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: {{$onepresentage}}%" aria-valuenow="{{$onepresentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div><br>
+                                                    </div>
+
+                                                </div>
+                                                {{-- <div class="ratelist"> --}}
+                                                    @forelse ($study->studyratings as $item)
+                                                    <div class="ratelist">
+                                                        <div class="singlerate">
+                                                            <p class="card-title d-inline ratesingleuser">{{$item->user->name}} <small><i class="fa fa-at" aria-hidden="true"></i> {{$item->created_at->diffForHumans()}}</small></p>
+                                                            <input id="show" name="values" class="rating rating-loading d-inline"  value="{{$item->value}}" data-min="0" data-max="5" data-step="0.5" readonly showClear="false" data-size="xs">
+                                                            <p class="card-text">{{$item->feedback}}</p>
+                                                        </div>
+                                                    </div>
+
+                                                @empty
+
+                                                @endforelse
+                                                {{-- </div> --}}
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>

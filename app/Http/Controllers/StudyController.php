@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Storage;
 use App\Notifications\NotifyNewStudy;
 use App\Notifications\NotifyNewStudyDB;
 use Notification;
+use Illuminate\Support\Facades\DB;
+use App\StudyRating;
 use App\User;
+use Auth;
 use Mail;
 use Session;
 
@@ -142,8 +145,45 @@ class StudyController extends Controller
     public function show($id)
     {
         $study = Study::findOrFail($id);
+        $all = $study->studyratings;
+        // $allvalues = DB::table('study_ratings')->where('study_id','=', $study->id)->get();
+        $count =  $all->count();
+        $avarage = $all->pipe(function($all) {
+            return $all->avg('value');
+        });
 
-        return view('study.show', compact('study'));
+        $five = $all->filter(function($all) {
+                return $all->value == 5;
+        });
+        $numoffive = count($five);
+        $fivepresentage = ($numoffive/$count) * 100;
+
+        $four = $all->filter(function($all) {
+                return $all->value == 4;
+        });
+        $numoffour = count($four);
+        $fourpresentage = ($numoffour/$count) * 100;
+
+        $three = $all->filter(function($all) {
+                return $all->value == 3;
+        });
+        $numofthree = count($three);
+        $threepresentage = ($numofthree/$count) * 100;
+
+        $two = $all->filter(function($all) {
+                return $all->value == 2;
+        });
+        $numoftwo = count($two);
+        $twopresentage = ($numoftwo/$count) * 100;
+
+        $one = $all->filter(function($all) {
+                return $all->value == 1;
+        });
+        $numofone = count($one);
+        $onepresentage = ($numofone/$count) * 100;
+        // dd($fivepresentage);
+
+        return view('study.show', compact('study' , 'avarage', 'fivepresentage', 'fourpresentage', 'threepresentage' , 'twopresentage', 'onepresentage'));
     }
 
     /**
@@ -249,6 +289,7 @@ class StudyController extends Controller
         return redirect('study')->with('flash_message', 'Study deleted!');
     }
 
+
     public function apply(Request $request){
 
         $this -> validate($request, array(
@@ -292,6 +333,6 @@ class StudyController extends Controller
          $studid = $request->studid;
 
         toastr()->success('Your Application sent Successfully!');
-        return redirect()->route('vacancy.show',$studid);
+        return redirect()->route('study.show',$studid);
     }
 }
