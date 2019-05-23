@@ -16,6 +16,8 @@ class SkillController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
     }
 
     /**
@@ -25,7 +27,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        return view ("");   
+        return view ("");
     }
 
     /**

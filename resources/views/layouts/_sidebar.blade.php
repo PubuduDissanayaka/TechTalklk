@@ -1,11 +1,12 @@
 <br>
 <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Menu</div>
 <ul class="sidebar-menu list-unstyled">
-<li class="sidebar-list-item"><a href="/home" class="sidebar-link text-muted {{ Request::is('home') ? "active" : ""}}"><h3><i class="fas fa-home"></i></h3><span class="mx-3">Home</span></a></li>
+<li class="sidebar-list-item"><a href="/dashboard" class="sidebar-link text-muted {{ Request::is('dashboard') ? "active" : ""}}"><h3><i class="fas fa-home"></i></h3><span class="mx-3">Dashboard</span></a></li>
     <li class="sidebar-list-item"><a class="sidebar-link text-muted" aria-expanded="true" aria-controls="blog-posts" href="#" data-toggle="collapse" data-target="#blog-posts"><h3><i class="fas fa-blog"></i></h3><span class="mx-3">Blog Post</span></a>
         <div class="collapse" id="blog-posts">
           <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-            <li class="sidebar-list-item"><a href="/blog-posts" class="sidebar-link text-muted {{ Request::is('blog-posts') ? "active" : ""}}"><span>All Posts</span></a></li>
+            <li class="sidebar-list-item"><a href="/blog-posts" class="sidebar-link text-muted {{ Request::is('blog-posts') ? "active" : ""}}">All Posts</a></li>
+            {{-- <li class="sidebar-list-item"><a class="sidebar-link text-muted pl-lg-5 {{ Request::is('blog-posts/create') ? "active" : ""}}" href="/blog-posts/create">Create Blog Post</a></li> --}}
             <li class="sidebar-list-item"><a class="sidebar-link text-muted pl-lg-5 {{ Request::is('blog-posts/create') ? "active" : ""}}" href="/blog-posts/create">Create Blog Post</a></li>
             {{-- <li class="sidebar-list-item"><a class="sidebar-link text-muted pl-lg-5" href="#">Page three</a></li>
             <li class="sidebar-list-item"><a class="sidebar-link text-muted pl-lg-5" href="#">Page four</a></li> --}}

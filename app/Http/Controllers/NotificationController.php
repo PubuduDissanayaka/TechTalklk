@@ -8,6 +8,13 @@ use Auth;
 
 class NotificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
+    }
+    
     public function get() {
         $notification = Auth::user()->unreadNotifications;
         return $notification;

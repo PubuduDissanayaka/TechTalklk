@@ -21,7 +21,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    // use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -62,6 +62,8 @@ class RegisterController extends Controller
             'github' => ''
         ]);
     }
+
+
 
 
     /**

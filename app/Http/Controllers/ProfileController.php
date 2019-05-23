@@ -10,6 +10,12 @@ use Auth;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +23,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $friends = Auth::user()->friends();
-        return view('users.profile', compact('friends'));
+
     }
 
     /**
@@ -51,9 +56,10 @@ class ProfileController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        // dd($user);
 
         $friends = $user->friends();
-        return view('users.profile', compact('friends'));
+        return view('users.profile', compact('friends','user'));
     }
 
     /**

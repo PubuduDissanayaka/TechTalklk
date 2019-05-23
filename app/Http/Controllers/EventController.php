@@ -15,6 +15,7 @@ use App\Notifications\NotifyNewEventDB;
 
 class EventController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -23,6 +24,8 @@ class EventController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
     }
 
     /**
