@@ -9,6 +9,12 @@ use App\Message;
 
 class messageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +43,7 @@ class messageController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -101,7 +107,7 @@ class messageController extends Controller
             'friend_id' => $request->friend_id,
             'chat' => $request->chat
         ]);
-        
+
         return [];
     }
 }

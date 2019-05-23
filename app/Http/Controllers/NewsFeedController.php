@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class NewsFeedController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -52,7 +58,7 @@ class NewsFeedController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')
@@ -106,7 +112,7 @@ class NewsFeedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $requestData = $request->all();
                 if ($request->hasFile('image')) {
             $requestData['image'] = $request->file('image')

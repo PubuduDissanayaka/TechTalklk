@@ -21,6 +21,12 @@ use Session;
 
 class StudyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('revalidate');
+        $this->middleware('verified');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -151,6 +157,13 @@ class StudyController extends Controller
         $avarage = $all->pipe(function($all) {
             return $all->avg('value');
         });
+
+        if ($count == 0) {
+            $count == 1;
+        } else {
+            $count = $count;
+        }
+
 
         $five = $all->filter(function($all) {
                 return $all->value == 5;
