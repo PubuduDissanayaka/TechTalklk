@@ -11,6 +11,7 @@
 <script src="{{ asset('js/charts-home.js') }}"></script>
 <script src="{{ asset('js/front.js') }}"></script>
 
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
 <script src="{{ asset('js/parsley.min.js') }}"></script>
 {{-- <script src="{{ asset('js/particles.min.js') }}"></script> --}}

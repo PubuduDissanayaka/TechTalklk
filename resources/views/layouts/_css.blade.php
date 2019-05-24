@@ -30,6 +30,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" !important>
 
     <link rel="stylesheet" href="{{asset('css/style.violet.css')}}" id="theme-stylesheet" !important>
+
+
+{{-- ui kit --}}
+    {{-- <link rel="stylesheet" href="{{asset('ui/assets/css/material-kit.min.css')}}"> --}}
+{{-- end ui kit --}}
+
+
     @toastr_css
     <link href="{{asset('css/styles.css')}}" rel="stylesheet">
     <main>

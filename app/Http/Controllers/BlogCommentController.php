@@ -62,7 +62,7 @@ class BlogCommentController extends Controller
 
         $post = BlogPost::find($comment->post_id);
 
-        $comment->save();
+        // $comment->save();
 
         toastr()->success('Commented successfully!');
 
@@ -70,14 +70,14 @@ class BlogCommentController extends Controller
 
 
         // $user = $post->user->id;
+        $post = BlogPost::find($comment->post_id);
+        $users = User::find($post->user_id);
+        // $user = $comment->post_id->id;
+        // dd($users);
 
-        $user = $comment->post_id->id;
-        dd($user);
-
-        $user->notify(new NotifyBlogPostOwnerDB($comment));
-        // Notification::route('mail', $user)->notify(new NotifyBlogPostOwner($comment));
-
-        // User::find($post->user->id)->notify(new NotifyBlogPostOwner($post));
+        // $users->notify(new NotifyBlogPostOwnerDB($comment));
+        Notification::send($users, new NotifyBlogPostOwnerDB($comment));
+        Notification::route('mail', $users)->notify(new NotifyBlogPostOwner($comment));
         return redirect()->route('blog-posts.show', $post)->with('comments', $comments);
     }
 
