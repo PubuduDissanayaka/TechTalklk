@@ -23,7 +23,7 @@ Route::get('/map', function () {
 
 // Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -33,9 +33,7 @@ Route::group(['prefix' => 'admin'], function () {
 // Auth::routes();
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
+Route::get('/dashboard', 'DashboardController@dashboard');
 
 
 Route::resource('/profile', 'ProfileController');
@@ -47,6 +45,8 @@ Route::resource('catagories', 'CatagoryController');
 Route::resource('events', 'EventController');
 
 Route::post('notification/get', 'NotificationController@get');
+Route::post('notification/read', 'NotificationController@read');
+
 
 Route::resource('comments', 'blogCommentController');
 

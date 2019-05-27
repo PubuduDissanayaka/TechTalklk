@@ -12,9 +12,9 @@
 @section('content')
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 
@@ -92,7 +92,7 @@
 
                                                 <div class="col-sm-12">
                                                         <br>
-                                                    <input type="submit" value="Post Comment" class="form-control shadow btn btn-success">
+                                                    <input type="submit" value="Post Comment" class="btn btn-block btn-success">
                                                 </div>
                                             </div>
                                         {{ Form::close()}}

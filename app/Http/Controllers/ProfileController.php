@@ -23,8 +23,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $friends = Auth::user()->friends();
-        return view('users.profile', compact('friends'));
+        // $friends = Auth::user()->friends();
+        // return view('users.profile', compact('friends'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         $friends = $user->friends();
-        return view('users.profile', compact('friends'));
+        return view('users.profile', compact('friends','user'));
     }
 
     /**

@@ -21,17 +21,15 @@
 
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-    <div id="sidebar" class="sidebar">
+    {{-- <div id="sidebar" class="sidebar">
         @include('layouts._sidebar')
-    </div>
+    </div> --}}
     {{-- end sideBar --}}
 
     {{-- page holder --}}
     <div class="page-holder w-100 d-flex flex-wrap">
         <div class="container-fluid px-xl-2">
             <section class="py-2">
-
-                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-8 offset-2">
                             <div class="card">
@@ -46,7 +44,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
                 <br>
             </section>
         </div>

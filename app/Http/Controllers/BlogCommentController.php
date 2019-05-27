@@ -46,7 +46,6 @@ class BlogCommentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $this->validate($request, array(
             'comment' => 'required|max:255',
             'user_id' => 'required',
@@ -62,7 +61,7 @@ class BlogCommentController extends Controller
 
         $post = BlogPost::find($comment->post_id);
 
-        // $comment->save();
+        $comment->save();
 
         toastr()->success('Commented successfully!');
 
@@ -75,6 +74,7 @@ class BlogCommentController extends Controller
         // $user = $comment->post_id->id;
         // dd($users);
 
+        // dd($comment);
         // $users->notify(new NotifyBlogPostOwnerDB($comment));
         Notification::send($users, new NotifyBlogPostOwnerDB($comment));
         Notification::route('mail', $users)->notify(new NotifyBlogPostOwner($comment));

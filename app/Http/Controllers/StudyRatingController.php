@@ -69,7 +69,8 @@ class StudyRatingController extends Controller
         $study = Study::find($request->study_id);
 
         // send notifications
-        $users = User::where('id', '=', $study->user_id)->get();
+        $users = User::find($studyRating->study_id);
+        // dd($users);
         Notification::send($users, new NotifyStudyOwnerRatingsDB($studyRating));
         Notification::route('mail', $users)->notify(new NotifyStudyOwnerRatings($studyRating));
 

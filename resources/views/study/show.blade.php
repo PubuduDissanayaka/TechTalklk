@@ -25,9 +25,9 @@ $(document).on('ready', function(){
 @endif
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-    <div id="sidebar" class="sidebar">
+    {{-- <div id="sidebar" class="sidebar">
         @include('layouts._sidebar')
-    </div>
+    </div> --}}
     {{-- end sideBar --}}
 
     {{-- page holder --}}

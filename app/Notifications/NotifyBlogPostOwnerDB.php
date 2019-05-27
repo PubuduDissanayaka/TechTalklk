@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\User;
 
 class NotifyBlogPostOwnerDB extends Notification
 {
@@ -31,7 +32,7 @@ class NotifyBlogPostOwnerDB extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
 
@@ -41,10 +42,32 @@ class NotifyBlogPostOwnerDB extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
+        $user = User::find($this->comment->user_id);
         return [
-            'blogcomment' => $this->comment
+            'data' => $this->comment,
+            'url' => '/blog-posts/' . $this->comment->post_id,
+            'message' => "New comment on your Blog Post",
+            'user' => $user,
+            'title' => 'New Comment',
+            'time' => $this->comment->created_at->diffForHumans()
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $user = User::find($this->comment->user_id);
+
+        return [
+            'data' =>[
+                'data' => $this->comment,
+                'url' => '/blog-posts/' . $this->comment->post_id,
+                'message' => "New comment on your Blog Post",
+                'user' => $user,
+                'title' => 'New Comment',
+                'time' => $this->comment->created_at->diffForHumans()
+            ]
         ];
     }
 }

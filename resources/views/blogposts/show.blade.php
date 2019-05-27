@@ -25,9 +25,9 @@
 @section('content')
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 {{-- page holder --}}
@@ -54,7 +54,7 @@
                                         </div>
                                         <ul class="blog_meta list">
                                             <li><a href="#">{{$blogpost->user->name}}<i class="lnr lnr-user"></i></a></li>
-                                            <li><a href="#">{{$blogpost->catagory->name}}<i class="fas fa-archive"></i></a></li>                                            
+                                            <li><a href="#">{{$blogpost->catagory->name}}<i class="fas fa-archive"></i></a></li>
                                             <li><a href="#">{{date('F j, Y',strtotime($blogpost->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
                                             <li><a href="#">{{date('g:i A',strtotime($blogpost->created_at))}}<i class="far fa-clock"></i></a></li>
                                             <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
@@ -79,7 +79,7 @@
                             <hr>
                             <a href="/blog-posts" class="btn btn-primary"><i class="fas fa-less-than"></i> Go Back</a>
                             <a href="/blog-posts/{{$blogpost->id}}/edit" class="btn btn-warning pull-right">Edit Blog Post</a>
-                            
+
                             {{-- comments --}}
                             <div class="comments-area">
                                 {{-- comment form --}}
@@ -93,13 +93,13 @@
                                         <div class="col-sm-12">
                                             <textarea name="comment" id="" class="form-control" rows="6" required></textarea>
                                         </div>
-                                        
+
                                         <div class="col-sm-12">
                                                 <br>
                                             <input type="submit" value="Post Comment" class="form-control shadow btn btn-outline-success">
                                         </div>
                                     </div>
-                                {{ Form::close()}}  
+                                {{ Form::close()}}
                                 <br><br>
                                     <hr>
                                 <h4><strong>{{$blogpost->comments->count()}} Comments</strong></h4>
@@ -120,7 +120,7 @@
                                                             {{$com->comment}}
                                                         </p>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="reply-btn">
                                                     <a href="" class="btn-reply text-uppercase">reply</a>
@@ -130,10 +130,10 @@
                                         </div>
                                         @endforeach
                                     @endif
-                                    
+
                             </div>
 
-                            
+
                         </div>
                         <div class="col-lg-4">
                             <div class="blog_right_sidebar">
@@ -161,7 +161,7 @@
                                                     </a>
                                                     <p>{{$pop->user->name}}</p>
                                                 </div>
-                                            </div> 
+                                            </div>
                                         @endforeach
                                     @else
                                         {{-- // --}}
@@ -194,15 +194,15 @@
                                     </ul>
                                     <div class="br"></div>
                                 </aside>
-                                
+
                                 <aside class="single-sidebar-widget tag_cloud_widget">
                                     <h4 class="widget_title">Tag Clouds</h4>
                                     <ul class="list">
                                         @foreach ($tags as $tag)
-                                            
+
                                         <li><a href="#">{{$tag->name}}</a></li>
                                         @endforeach
-                                        
+
                                     </ul>
                                 </aside>
                             </div>
@@ -216,7 +216,7 @@
                 <img class="modal-content" id="img01">
                 <div id="caption"></div>
             </div>
-            
+
             <script>
 
             </script>
@@ -231,22 +231,11 @@
 
 @section('script')
     	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	{{-- <script src="{{asset('js/home/jquery-3.2.1.min.js')}}"></script> --}}
-	{{-- <script src="{{asset('js/home/popper.js')}}"></script> --}}
-	{{-- <script src="{{asset('js/home/bootstrap.min.js')}}"></script> --}}
-	<script src="{{asset('js/home/stellar.js')}}"></script>
-	<script src="{{asset('js/home/jquery.magnific-popup.min.js')}}"></script>
 	<script src="{{asset('vendor/home/nice-select/js/jquery.nice-select.min.js')}}"></script>
 	<script src="{{asset('vendor/home/isotope/imagesloaded.pkgd.min.js')}}"></script>
 	<script src="{{asset('vendor/home/isotope/isotope-min.js')}}"></script>
 	<script src="{{asset('vendor/home/owl-carousel/owl.carousel.min.js')}}"></script>
-	<script src="{{asset('js/home/jquery.ajaxchimp.min.js')}}"></script>
 	<script src="{{asset('vendor/home/counter-up/jquery.waypoints.min.js')}}"></script>
 	<script src="{{asset('vendor/home/counter-up/jquery.counterup.min.js')}}"></script>
-	<script src="{{asset('js/home/mail-script.js')}}"></script>
-	<!--gmaps Js-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="{{asset('js/home/gmaps.min.js')}}"></script>
 	<script src="{{asset('js/home/theme.js')}}"></script>
 @endsection

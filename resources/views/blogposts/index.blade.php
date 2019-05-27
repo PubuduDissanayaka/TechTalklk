@@ -2,7 +2,7 @@
 
 @section('css')
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="{{asset('css/home/bootstrap.css')}}">
+  {{-- <link rel="stylesheet" href="{{asset('css/home/bootstrap.css')}}"> --}}
   <link rel="stylesheet" href="{{asset('vendor/home/linericon/style.css')}}">
   <link rel="stylesheet" href="{{asset('css/home/font-awesome.min.css')}}">
   <link rel="stylesheet" href="{{asset('vendor/home/owl-carousel/owl.carousel.min.css')}}">
@@ -30,9 +30,9 @@
 @endif
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 {{-- page holder --}}
@@ -59,7 +59,7 @@
                                                         <li><a href="#">{{$dat->user->name}}<i class="lnr lnr-user"></i></a></li>
                                                         <li><a href="#">{{$dat->catagory->name}}<i class="fas fa-archive"></i></a></li>
                                                         <li><a href="#">{{date('F j, Y',strtotime($dat->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
-                                                        <li><a href="#">{{date('g:i A',strtotime($dat->created_at))}}<i class="far fa-clock"></i></a></li>                                                        
+                                                        <li><a href="#">{{date('g:i A',strtotime($dat->created_at))}}<i class="far fa-clock"></i></a></li>
                                                         <li><a href="#">1.2M Views<i class="lnr lnr-eye"></i></a></li>
                                                         <li><a href="#">{{$dat->comments->count()}} Comments<i class="lnr lnr-bubble"></i></a></li>
                                                     </ul>
@@ -134,7 +134,7 @@
                                                     </a>
                                                     <p>{{$pop->user->name}}</p>
                                                 </div>
-                                            </div> 
+                                            </div>
                                         @endforeach
                                     @else
                                         {{-- // --}}
@@ -167,7 +167,7 @@
                                     </ul>
                                     <div class="br"></div>
                                 </aside>
-                                
+
                                 <aside class="single-sidebar-widget tag_cloud_widget">
                                     <h4 class="widget_title">Tag Clouds</h4>
                                     <ul class="list">
@@ -202,9 +202,9 @@
 @section('script')
     	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="{{asset('js/home/jquery-3.2.1.min.js')}}"></script>
-	<script src="{{asset('js/home/popper.js')}}"></script>
-	<script src="{{asset('js/home/bootstrap.min.js')}}"></script>
+	{{-- <script src="{{asset('js/home/jquery-3.2.1.min.js')}}"></script> --}}
+	{{-- <script src="{{asset('js/home/popper.js')}}"></script> --}}
+	{{-- <script src="{{asset('js/home/bootstrap.min.js')}}"></script> --}}
 	<script src="{{asset('js/home/stellar.js')}}"></script>
 	<script src="{{asset('js/home/jquery.magnific-popup.min.js')}}"></script>
 	<script src="{{asset('vendor/home/nice-select/js/jquery.nice-select.min.js')}}"></script>

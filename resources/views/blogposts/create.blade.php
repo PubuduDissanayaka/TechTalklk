@@ -4,14 +4,15 @@
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ck5lksam8dja2hvssb8hndfyhnd9qxvwobl1z6lxjuwyswym"></script>
 {{-- <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script> --}}
 <script>
-    tinymce.init({ 
+    tinymce.init({
         selector:'#blogwrite',
-        resize: false,                   
+        resize: false,
         plugins: 'link image table advlist autolink imagetools table spellchecker lists charmap print preview',
-        contextmenu_never_use_native: true, 
+        contextmenu_never_use_native: true,
         plugins : 'advlist autolink table link image lists charmap print preview'
     });
 </script>
+<link rel="stylesheet" href="{{asset('kit/assets/plugins/dropify/dist/css/dropify.min.css')}}">
 @endsection
 
 {{-- @section('parsley.min.js')
@@ -26,9 +27,9 @@
 @endif
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 {{-- page holder --}}
@@ -76,7 +77,7 @@
                         @foreach ($cat as $cat)
                             <option class="form-control" value="{{$cat->id}}">{{$cat->name}}</option>
                         @endforeach
-                            
+
                         @else
                             <option>no catagory Found here</option>
                         @endif
@@ -96,7 +97,7 @@
         </div>
     </div>
     {!! Form::close() !!}
-    
+
 </section>
 </div>
 
@@ -107,5 +108,51 @@
 @endsection
 
 @section('script')
-    
+<script src="{{asset('kit/assets/plugins/dropify/dist/js/dropify.min.js')}}"></script>
+    <script>
+    $(document).ready(function() {
+        // Basic
+        $('.dropify').dropify();
+
+        // Translated
+        $('.dropify-fr').dropify({
+            messages: {
+                default: 'Glissez-déposez un fichier ici ou cliquez',
+                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
+                remove: 'Supprimer',
+                error: 'Désolé, le fichier trop volumineux'
+            }
+        });
+
+        // Used events
+        var drEvent = $('#input-file-events').dropify();
+
+        drEvent.on('dropify.beforeClear', function(event, element) {
+            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+        });
+
+        drEvent.on('dropify.afterClear', function(event, element) {
+            alert('File deleted');
+        });
+
+        drEvent.on('dropify.errors', function(event, element) {
+            console.log('Has Errors');
+        });
+
+        var drDestroy = $('#input-file-to-destroy').dropify();
+        drDestroy = drDestroy.data('dropify')
+        $('#toggleDropify').on('click', function(e) {
+            e.preventDefault();
+            if (drDestroy.isDropified()) {
+                drDestroy.destroy();
+            } else {
+                drDestroy.init();
+            }
+        })
+    });
+    </script>
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <script src="{{asset('kit/assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
 @endsection

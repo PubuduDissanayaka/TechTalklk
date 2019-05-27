@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\BlogPost;
+use App\User;
 
 class NotifyNewBlogPostDB extends Notification
 {
@@ -33,7 +34,7 @@ class NotifyNewBlogPostDB extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -44,12 +45,31 @@ class NotifyNewBlogPostDB extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $user = User::find($this->blogpost->user->id);
+        // dd($user);
         return [
-            'dataid' => $this->blogpost->id,
-            'datatitle' => $this->blogpost->title,
-            'datacreatedat' => $this->blogpost->created_at,
-            'datauser' => $this->blogpost->user->name,
             'data' => $this->blogpost,
+            'url' => '/blog-posts/' . $this->blogpost->id,
+            'message' => $user->name . " has Publoshed New blogpost on Blog Posts",
+            'user' => $user,
+            'title' => 'New Blog Post',
+            'time' => $this->blogpost->created_at->diffForHumans()
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $user = User::find($this->blogpost->user->id);
+
+        return [
+            'data' =>[
+                'data' => $this->blogpost,
+                'url' => '/blog-posts/' . $this->blogpost->id,
+                'message' => $user->name . " has Publoshed New blogpost on Blog Posts",
+                'user' => $user,
+                'title' => 'New Blog Post',
+                'time' => $this->blogpost->created_at->diffForHumans()
+            ]
         ];
     }
 }

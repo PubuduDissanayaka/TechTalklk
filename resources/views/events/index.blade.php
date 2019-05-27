@@ -12,9 +12,9 @@
 @endif
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 {{-- page holder --}}
@@ -32,19 +32,19 @@
                         <a href="#" class="btn btn-secondary my-2 lead">Contact Customer Care</a>
                     </p>
                 </div>
-            </section>    
-        </div>  
+            </section>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-9">
                 <main role="main">
                         <div class="album">
                           <div class="container">
-                  
+
                             <div class="row">
 
                               @if (count($events)>0)
-                              @foreach ($events as $event)    
+                              @foreach ($events as $event)
                               <div class="col-md-6">
                                 <div class="card mb-4 box-shadow">
                                   <img class="card-img-top img-fluid" style="height:200px;" src="{{ asset('img/events/cover/' . $event->cover)}}" alt="Card image cap">
@@ -76,7 +76,7 @@
                         </div>
                       </main>
         </div>
-        
+
         <div class="col-sm-3 py-3">
           <form method="GET" action="{{ url('/events') }}" accept-charset="UTF-8" role="search">
             <div class="input-group">

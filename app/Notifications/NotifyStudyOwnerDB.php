@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\User;
 
 class NotifyStudyOwnerDB extends Notification
 {
@@ -30,26 +31,42 @@ class NotifyStudyOwnerDB extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-
-    /**
-     * Get the array representation of the notification.
+     * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
+
+        $user = User::find($this->comment->user_id);
         return [
-            'studycomment' => $this->comment
+            'data' => $this->comment,
+            'url' => '/study/' . $this->comment->study_id,
+            'message' => "New comment on your Study Plan",
+            'user' => $user,
+            'title' => 'New Comment',
+            'time' => $this->comment->created_at->diffForHumans()
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $user = User::find($this->comment->user_id);
+
+        return [
+            'data' =>[
+                'data' => $this->comment,
+                'url' => '/study/' . $this->comment->study_id,
+                'message' => "New comment on your Study Plan",
+                'user' => $user,
+                'title' => 'New Comment',
+                'time' => $this->comment->created_at->diffForHumans()
+            ]
         ];
     }
 }

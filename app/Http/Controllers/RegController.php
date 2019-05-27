@@ -16,7 +16,7 @@ class RegController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -60,7 +60,7 @@ class RegController extends Controller
         $user->password = Hash::make($request->password);
         $user->last_name = $request->lname;
 
-        $user->save();
+        // $user->save();
 
         $getid = User::where('email', '=', $user->email)->get();
         $details = new UserDetail;
@@ -76,7 +76,8 @@ class RegController extends Controller
         $details->blog = $request->blog;
         $details->github = $request->github;
 
-        $details->save();
+        // $details->save();
+        // dd($request);
 
 
         toastr()->success('Your Account Created Successfully! Check your email to activate and verify your account');

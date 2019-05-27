@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&callback=initMap" async defer></script>
+{{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&callback=initMap" async defer></script> --}}
     <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ck5lksam8dja2hvssb8hndfyhnd9qxvwobl1z6lxjuwyswym"></script>
 <script>
     tinymce.init({
@@ -12,12 +12,29 @@
         plugins : 'advlist autolink table link image lists charmap print preview'
     });
 </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&libraries=places"></script>
+<script type="text/javascript">
+// Clock pickers
+    $('#single-input').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        autoclose: true,
+        'default': 'now'
+    });
+    $('.clockpicker').clockpicker({
+        donetext: 'Done',
+    }).find('input').change(function() {
+        console.log(this.value);
+    });
+    $('#check-minutes').click(function(e) {
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+    });
+    if (/mobile/i.test(navigator.userAgent)) {
+        $('input').prop('readOnly', true);
+    }
+</script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDByltWl2odxcXj45rSl1rB7bqS6M2kTGg&libraries=places"></script>
 
 
 @endsection
@@ -25,9 +42,9 @@
 @section('content')
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 
@@ -63,8 +80,11 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Start Time</label>
-                                    <input type="time"
-                                        class="form-control form-control-sm" name="start" id="" aria-describedby="helpId" placeholder="" required>
+
+                                        <div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true">
+                                            <input type="text" class="form-control" value="13:14" id="single-input"> <span class="input-group-addon"> <span class="fa fa-clock-o"></span> </span>
+                                        </div>
+                                    <input type="time" class="form-control form-control-sm" name="start" id="" aria-describedby="helpId" placeholder="" required>
                                     <small id="helpId" class="form-text text-muted">Event Starting Time</small>
                                 </div>
                             </div>
@@ -147,6 +167,7 @@
 @section('script')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+
 var searchBox = new google.maps.places.SearchBox(document.getElementById('search_location'));
 </script>
 

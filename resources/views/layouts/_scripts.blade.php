@@ -1,29 +1,57 @@
-<!-- JavaScript files-->
-<!-- Scripts -->
-<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-{{-- <script src="{{ asset('vendor/popper.js/umd/popper.min.js') }}"> </script>
-<script src="{{ asset('vendor/jquery.cookie/jquery.cookie.js') }}"> </script> --}}
-<script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<script src="{{ asset('js/charts-home.js') }}"></script>
-<script src="{{ asset('js/front.js') }}"></script>
-
-<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
-<script src="{{ asset('js/parsley.min.js') }}"></script>
-{{-- <script src="{{ asset('js/particles.min.js') }}"></script> --}}
-<main>
-    @yield('script')
-</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 @include('layouts.toast')
 @jquery
 @toastr_js
 @toastr_render
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="{{asset('kit/assets/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('js')
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<main>
+    @yield('script')
+</main>
+<script src="{{ asset('js/parsley.min.js') }}"></script>
+{{-- kit --}}
+<!-- All Jquery -->
+    <!-- ============================================================== -->
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{{asset('kit/assets/plugins/bootstrap/js/popper.min.js')}}"></script>
+    <script src="{{asset('kit/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{{asset('kit/js/jquery.slimscroll.js')}}"></script>
+    <!--Wave Effects -->
+    <script src="{{asset('kit/js/waves.js')}}"></script>
+    <!--Menu sidebar -->
+    <script src="{{asset('kit/js/sidebarmenu.js')}}"></script>
+    <!--stickey kit -->
+    <script src="{{asset('kit/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
+    <script src="{{asset('kit/assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+    <!--Custom JavaScript -->
+    <script src="{{asset('kit/js/custom.min.js')}}"></script>
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!-- chartist chart -->
+    <script src="{{asset('kit/assets/plugins/chartist-js/dist/chartist.min.js')}}"></script>
+    <script src="{{asset('kit/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js')}}"></script>
+    <!--c3 JavaScript -->
+    <script src="{{asset('kit/assets/plugins/d3/d3.min.js')}}"></script>
+    <script src="{{asset('kit/assets/plugins/c3-master/c3.min.js')}}"></script>
+    <!-- Vector map JavaScript -->
+    <script src="{{asset('kit/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js')}}"></script>
+    <script src="{{asset('kit/assets/plugins/vectormap/jquery-jvectormap-us-aea-en.js')}}"></script>
+    <script src="{{asset('kit/js/dashboard2.js')}}"></script>
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <script src="{{asset('kit/assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
+{{-- end kit --}}
+
+    <script src="{{asset('kit/assets/plugins/clockpicker/dist/jquery-clockpicker.min.js')}}" type="text/javascript"></script>

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\User;
 
 class NotifyNewStudyDB extends Notification
 {
@@ -30,7 +31,7 @@ class NotifyNewStudyDB extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -41,8 +42,31 @@ class NotifyNewStudyDB extends Notification
      */
     public function toDatabase($notifiable)
     {
+        $user = User::find($this->study->user->id);
+        // dd($user);
         return [
-            'study' => $this->study
+            'data' => $this->study,
+            'url' => '/study/' . $this->study->id,
+            'message' => $user->name . " has Publoshed New Study Plan on Study",
+            'user' => $user,
+            'title' => 'New study Plan',
+            'time' => $this->study->created_at->diffForHumans()
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $user = User::find($this->study->user->id);
+
+        return [
+            'data' =>[
+                'data' => $this->study,
+                'url' => '/study/' . $this->study->id,
+                'message' => $user->name . " has Publoshed New Study Plan on Study",
+                'user' => $user,
+                'title' => 'New study Plan',
+                'time' => $this->study->created_at->diffForHumans()
+            ]
         ];
     }
 }

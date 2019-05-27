@@ -26,9 +26,9 @@
 @endif
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-    <div id="sidebar" class="sidebar">
+    {{-- <div id="sidebar" class="sidebar">
         @include('layouts._sidebar')
-    </div>
+    </div> --}}
     {{-- end sideBar --}}
 
     {{-- page holder --}}
@@ -39,9 +39,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="vacjumboshow jumbotron">
-                                    <h2>
+                                    <h1 style="color:white;" class="display-4">
                                         {{$vacancy->title}}
-                                    </h2>
+                                    </h1>
                                     <br>
                                     <p>
                                         <div class="lead"><i class="far fa-user"></i> Posted by: {{$vacancy->user->name}}</div>
@@ -81,13 +81,13 @@
 
                                     {{-- sidebar --}}
                                     <div class="col-md-3">
-                                        <a id="modal-229234" href="#modal-container-229234" role="button" data-toggle="modal" class="btn btn-block btn-lg btn-success">
+                                        <a id="modal-229234" href="#modal-container-229234" role="button" data-toggle="modal" class="btn btn-block btn-lg btn-success waves-effect waves-light">
                                             Send CV
                                         </a>
 
                                         <br>
                                         @if (isset($vacancy->document))
-                                            <a href="{{asset('storage/uploads/vacancies/document/'.$vacancy->document)}}" download class="btn btn-block btn-blue"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download Document</a>
+                                            <a href="{{asset('storage/uploads/vacancies/document/'.$vacancy->document)}}" download class="btn btn-block btn-info waves-effect waves-light"><i class="far fa-file-pdf"></i> Download Document</a>
                                         @else
 
                                         @endif

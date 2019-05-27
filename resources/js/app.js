@@ -27,6 +27,7 @@ Vue.component('notification', require('./components/Notification.vue').default);
 
 
 
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -71,9 +72,12 @@ const app = new Vue({
         }
 
         axios.post('/notification/get').then(response => {
-            this.notifications = response;
+            this.notifications = response.data;
         });
 
-
+        var notyUserId = $('meta[name="userId"]').attr('content');
+        Echo.private('App.User.' + notyUserId).notification((notification) => {
+            this.notification.push(notification);
+        });
     }
 });

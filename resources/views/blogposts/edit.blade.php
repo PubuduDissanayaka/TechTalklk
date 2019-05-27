@@ -4,11 +4,11 @@
 <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ck5lksam8dja2hvssb8hndfyhnd9qxvwobl1z6lxjuwyswym"></script>
 {{-- <script src="https://cloud.tinymce.com/5/tinymce.min.js"></script> --}}
 <script>
-    tinymce.init({ 
+    tinymce.init({
         selector:'#blogwrite',
-        resize: false,                   
+        resize: false,
         plugins: 'link image table advlist autolink imagetools table spellchecker lists charmap print preview',
-        contextmenu_never_use_native: true, 
+        contextmenu_never_use_native: true,
         plugins : 'advlist autolink table link image lists charmap print preview'
     });
 </script>
@@ -22,9 +22,9 @@
 @endif
 {{-- sideBar --}}
 <div class="d-flex align-items-stretch">
-<div id="sidebar" class="sidebar">
+{{-- <div id="sidebar" class="sidebar">
     @include('layouts._sidebar')
-</div>
+</div> --}}
 {{-- end sideBar --}}
 
 {{-- page holder --}}
@@ -73,7 +73,7 @@
                         @foreach ($cat as $cat)
                             <option class="form-control" value="{{$cat->id}}">{{$cat->name}}</option>
                         @endforeach
-                            
+
                         @else
                             <option>no catagory Found here</option>
                         @endif
@@ -98,7 +98,7 @@
         </div>
     </div>
     {!! Form::close() !!}
-    
+
 </section>
 </div>
 
@@ -109,5 +109,5 @@
 @endsection
 
 @section('script')
-    
+
 @endsection

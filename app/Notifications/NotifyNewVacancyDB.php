@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\user;
 
 class NotifyNewVacancyDB extends Notification
 {
@@ -30,7 +31,7 @@ class NotifyNewVacancyDB extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -39,10 +40,32 @@ class NotifyNewVacancyDB extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
+        $user = User::find($this->vac->user->id);
+        // dd($user);
         return [
-            'vacancy' => $this->vac
+            'data' => $this->vac,
+            'url' => '/vacancy/' . $this->vac->id,
+            'message' => $user->name . " has Publoshed New Job Vacancy on Job Market",
+            'user' => $user,
+            'title' => 'New Job vacancy',
+            'time' => $this->vac->created_at->diffForHumans()
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $user = User::find($this->vac->user->id);
+        return [
+            'data' =>[
+                'data' => $this->vac,
+                'url' => '/vacancy/' . $this->vac->id,
+                'message' => $user->name . " has Publoshed New Job Vacancy on Job Market",
+                'user' => $user,
+                'title' => 'New Job vacancy',
+                'time' => $this->vac->created_at->diffForHumans()
+            ]
         ];
     }
 }

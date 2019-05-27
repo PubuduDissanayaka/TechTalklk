@@ -13,7 +13,6 @@
 <!-- Tweaks for older IEs--><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <link rel="stylesheet" href="{{asset('css/parsley.css')}}" id="theme-stylesheet">
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -29,21 +28,42 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" !important>
 
-    <link rel="stylesheet" href="{{asset('css/style.violet.css')}}" id="theme-stylesheet" !important>
-
-
-{{-- ui kit --}}
-    {{-- <link rel="stylesheet" href="{{asset('ui/assets/css/material-kit.min.css')}}"> --}}
-{{-- end ui kit --}}
-
-
+    {{-- <link rel="stylesheet" href="{{asset('css/style.violet.css')}}" id="theme-stylesheet" !important> --}}
     @toastr_css
-    <link href="{{asset('css/styles.css')}}" rel="stylesheet">
+
+    {{-- <link rel="stylesheet" href="{{asset('ui/assets/css/material-kit.min.css')}}"> --}}
+	{{-- <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> --}}
+
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+{{-- kit --}}
+<!-- Bootstrap Core CSS -->
+    <link href="{{asset('kit/assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- chartist CSS -->
+    <link href="{{asset('kit/assets/plugins/chartist-js/dist/chartist.min.css')}}" rel="stylesheet">
+    <link href="{{asset('kit/assets/plugins/chartist-js/dist/chartist-init.css')}}" rel="stylesheet">
+    <link href="{{asset('kit/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
+    <link href="{{asset('kit/assets/plugins/css-chart/css-chart.css')}}" rel="stylesheet">
+    <!--This page css - Morris CSS -->
+    <link href="{{asset('kit/assets/plugins/c3-master/c3.min.css')}}" rel="stylesheet">
+    <!-- Vector CSS -->
+    <link href="{{asset('kit/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="{{asset('kit/css/style.css')}}" rel="stylesheet">
+    <!-- You can change the theme colors from here -->
+    <link href="{{asset('kit/css/colors/purple-dark.css')}}" id="theme" rel="stylesheet">
+{{-- end kit --}}
+
+
+    <link rel="stylesheet" type="text/css" href="{{asset('kit/assets/plugins/clockpicker/dist/jquery-clockpicker.min.css')}}" />
+
+
     <main>
         @yield('css')
     </main>
+    <link rel="stylesheet" href="{{asset('css/parsley.css')}}" id="theme-stylesheet">
 
-
-
+    <link href="{{asset('css/styles.css')}}" rel="stylesheet">
 
 
