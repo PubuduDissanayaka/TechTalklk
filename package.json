@@ -15,7 +15,7 @@
         "bootstrap": "^4.0.0",
         "bootstrap-star-rating": "^4.0.4",
         "cross-env": "^5.1",
-        "jquery": "^3.4.0",
+        "jquery": "^3.5.0",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
         "parallax-js": "^3.1.0",
